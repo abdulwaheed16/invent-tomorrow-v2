@@ -1,8 +1,13 @@
 // types/services.ts
 
-import { LucideIcon } from "lucide-react";
-import { iconMap } from "./page";
+import { Code2, Lightbulb, LucideIcon, Smartphone, Sparkles } from "lucide-react";
 
+export const iconMap: Record<string, LucideIcon> = {
+  Sparkles,
+  Code2,
+  Smartphone,
+  Lightbulb,
+};
 // Base Service type from the provided data
 export interface Service {
   id: string;
