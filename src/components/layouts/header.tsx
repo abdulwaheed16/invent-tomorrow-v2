@@ -2,7 +2,15 @@
 
 import { headerNavItems } from "@/lib/data/navigations";
 import { AnimatePresence, motion } from "framer-motion";
-import { Brain, Code, Menu, Shield, Smartphone, X } from "lucide-react";
+import {
+  Brain,
+  ChevronDown,
+  Code,
+  Menu,
+  Shield,
+  Smartphone,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,41 +34,41 @@ const menuVariants = {
   },
 };
 
-// const dropdownVariants = {
-//   hidden: {
-//     opacity: 0,
-//     y: -10,
-//     scale: 0.95,
-//     transition: {
-//       duration: 0.2,
-//       ease: "easeOut" as const,
-//     },
-//   },
-//   visible: {
-//     opacity: 1,
-//     y: 0,
-//     scale: 1,
-//     transition: {
-//       duration: 0.25,
-//       ease: "easeOut" as const,
-//       staggerChildren: 0.05,
-//     },
-//   },
-//   exit: {
-//     opacity: 0,
-//     y: -10,
-//     scale: 0.95,
-//     transition: {
-//       duration: 0.2,
-//       ease: "easeIn" as const,
-//     },
-//   },
-// };
+const dropdownVariants = {
+  hidden: {
+    opacity: 0,
+    y: -10,
+    scale: 0.95,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut" as const,
+    },
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.25,
+      ease: "easeOut" as const,
+      staggerChildren: 0.05,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.95,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn" as const,
+    },
+  },
+};
 
-// const itemVariants = {
-//   hidden: { opacity: 0, x: -10 },
-//   visible: { opacity: 1, x: 0 },
-// };
+const itemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0 },
+};
 
 const Header = () => {
   const router = useRouter();
@@ -183,7 +191,7 @@ const Header = () => {
               </Link>
             </li>
           ))}
-          {/* <li className="relative" ref={dropdownRef}>
+          <li className="relative" ref={dropdownRef}>
             <button
               className={`text-sm font-medium  transition-all duration-300 flex items-center gap-1 relative group outline-none ${
                 !isHomePage && !scrolled ? "text-white drop-shadow-md" : ""
@@ -205,7 +213,6 @@ const Header = () => {
               ></span>
             </button>
 
-      
             <AnimatePresence>
               {isDropdownOpen && (
                 <motion.div
@@ -249,7 +256,7 @@ const Header = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </li> */}
+          </li>
         </ul>
 
         {/* Desktop CTA */}
@@ -328,7 +335,7 @@ const Header = () => {
                 </div>
               </li>
 
-              {/* <li>
+              <li>
                 <Link
                   href="https://calendly.com/abdulhaadi-businesschat/30min"
                   target="_blank"
@@ -342,7 +349,7 @@ const Header = () => {
                     Book a 20-minute call
                   </motion.button>
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </motion.div>
         )}
