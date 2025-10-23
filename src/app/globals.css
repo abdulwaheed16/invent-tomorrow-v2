@@ -1,0 +1,320 @@
+/* Import Tailwind's core and any plugins */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-segoe-ui: var(--font-segoe-ui), sans-serif;
+  --font-segoe-ui-ab: var(--font-segoe-ui-ab), sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-my-primary: var(--my-primary);
+  --color-my-accent: var(--my-accent);
+  --color-blue-600: #0066ff;
+  --color-blue-400: #00d4ff;
+  --color-blue-800: #003d99;
+  --color-blue-900: #002966;
+  --color-blue-950: #001a33;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+}
+
+/* Define the light theme CSS variables */
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #f8fafc;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #0066ff;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0066ff;
+  --chart-1: #0066ff;
+  --chart-2: #00d4ff;
+  --chart-3: #7c3aed;
+  --chart-4: #ec4899;
+  --chart-5: #10b981;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0066ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0066ff;
+  --my-primary: #0066ff;
+  --my-accent: #00d4ff;
+
+  /* Custom variables for glass morphism and elevations */
+  --elevate-1: rgba(0, 102, 255, 0.05);
+  --elevate-2: rgba(0, 102, 255, 0.08);
+  --elevate-3: rgba(0, 102, 255, 0.12);
+}
+
+/*
+ * Use Tailwind's @layer to apply base styles to HTML elements.
+ * This is a good place to set global text and background colors.
+ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .container {
+    @apply mx-auto px-12;
+    max-width: 1440px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .inner-container {
+    @apply mx-auto px-4 py-1;
+    max-width: 1120px;
+  }
+
+  section {
+    @apply py-10 md:py-12;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight;
+  }
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl font-semibold leading-snug tracking-tight;
+  }
+  h4 {
+    @apply text-lg md:text-xl lg:text-2xl font-semibold leading-snug tracking-tight;
+  }
+  h5 {
+    @apply text-base md:text-lg lg:text-xl font-medium leading-snug tracking-tight;
+  }
+  h6 {
+    @apply text-sm md:text-base lg:text-lg font-medium leading-snug tracking-tight;
+  }
+  p {
+    @apply text-base md:text-lg  leading-relaxed;
+  }
+  a {
+    @apply text-primary hover:text-blue-800 transition-colors;
+  }
+}
+
+@layer components {
+  .morphic-card {
+    @apply bg-card border border-border rounded-lg shadow-sm transition-all duration-300 ease-out;
+  }
+
+  .morphic-card:hover {
+    @apply shadow-md transform translate-y-[-2px];
+  }
+
+  .nav-link {
+    @apply text-slate-600 hover:text-primary transition-colors duration-150 ease-out;
+  }
+
+  .nav-link.active {
+    @apply text-primary font-medium;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground transition-all duration-150 ease-out transform hover:scale-[1.02] hover:bg-blue-800;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground transition-all duration-150 ease-out hover:bg-slate-200;
+  }
+
+  .breathing-layout {
+    @apply space-y-6 md:space-y-8 lg:space-y-12;
+  }
+
+  /* Glass morphism effect */
+  .glass-effect {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-400;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:border-blue-600/50 hover:shadow-lg hover:shadow-blue-600/10;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-400 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-blue-600/25;
+  }
+
+  .btn-secondary {
+    @apply bg-white/70 backdrop-blur-sm border border-white/20 text-slate-800 font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:bg-white/90;
+  }
+
+  /* process detailed component */
+  .writing-mode-vertical-rl {
+    writing-mode: vertical-rl;
+  }
+
+  .text-orientation-mixed {
+    text-orientation: mixed;
+  }
+
+  .transform-rotate-180 {
+    transform: rotate(180deg);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animation-delay-75 {
+    animation-delay: 75ms;
+  }
+
+  .animation-delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+}
+
+/* Hide ugly search cancel button in Chrome until we can style it properly */
+input[type="search"]::-webkit-search-cancel-button {
+  @apply hidden;
+}
+
+[contenteditable][data-placeholder]:empty::before {
+  content: attr(data-placeholder);
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+}
+
+.no-default-hover-elevate {
+}
+
+.no-default-active-elevate {
+}
+
+.toggle-elevate::before,
+.toggle-elevate-2::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0px;
+  /*border-radius: inherit;   match rounded corners */
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.toggle-elevate.toggle-elevated::before {
+  background-color: var(--elevate-2);
+}
+
+.border.toggle-elevate::before {
+  inset: -1px;
+}
+
+.hover-elevate:not(.no-default-hover-elevate),
+.active-elevate:not(.no-default-active-elevate),
+.hover-elevate-2:not(.no-default-hover-elevate),
+.active-elevate-2:not(.no-default-active-elevate) {
+  position: relative;
+  z-index: 0;
+}
+
+.hover-elevate:not(.no-default-hover-elevate)::after,
+.active-elevate:not(.no-default-active-elevate)::after,
+.hover-elevate-2:not(.no-default-hover-elevate)::after,
+.active-elevate-2:not(.no-default-active-elevate)::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0px;
+  /*border-radius: inherit;   match rounded corners */
+  border-radius: inherit;
+  z-index: 999;
+}
+
+.hover-elevate:hover:not(.no-default-hover-elevate)::after,
+.active-elevate:active:not(.no-default-active-elevate)::after {
+  background-color: var(--elevate-1);
+}
+
+.hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
+.active-elevate-2:active:not(.no-default-active-elevate)::after {
+  background-color: var(--elevate-2);
+}
+
+.border.hover-elevate:not(.no-hover-interaction-elevate)::after,
+.border.active-elevate:not(.no-active-interaction-elevate)::after,
+.border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
+.border.active-elevate-2:not(.no-active-interaction-elevate)::after,
+.border.hover-elevate:not(.no-hover-interaction-elevate)::after {
+  inset: -1px;
+}
