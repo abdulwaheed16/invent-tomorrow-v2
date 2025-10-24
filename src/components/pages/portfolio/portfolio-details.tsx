@@ -390,72 +390,6 @@ export function PortfolioDetailContent({
         </div>
       </section>
 
-      {/* Stats Section */}
-      {portfolio.stats && (
-        <section className="relative py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 overflow-hidden">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-600 rounded-full filter blur-3xl" />
-          </div>
-
-          <div className="container relative z-10">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
-              <div className="text-center mb-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-                  Project <span className="text-blue-600">Impact</span>
-                </h3>
-                <p className="text-slate-600">
-                  Key metrics that demonstrate our success
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {portfolio.stats.map((stat, index) => {
-                  const Icon = getStatIcon(stat.label);
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
-                      whileHover={{ y: -5, scale: 1.05 }}
-                      className="text-center"
-                    >
-                      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50">
-                        {/* Icon */}
-                        <div className="relative mb-4 inline-flex">
-                          <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl blur-lg opacity-20" />
-                          <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 p-3 rounded-xl text-white shadow-md">
-                            <Icon className="w-6 h-6" />
-                          </div>
-                        </div>
-
-                        {/* Stat Value */}
-                        <h4 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                          {stat.value}
-                        </h4>
-
-                        {/* Stat Label */}
-                        <p className="text-slate-700 font-medium text-sm leading-relaxed">
-                          {stat.label}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      )}
-
       {/* Challenge & Solution - Enhanced with Background */}
       <section className="relative py-16 overflow-hidden">
         {/* Background Blobs */}
@@ -929,3 +863,69 @@ export function PortfolioDetailContent({
     </div>
   );
 }
+
+//  {/* Stats Section */}
+//   {portfolio.stats && (
+//     <section className="relative py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 overflow-hidden">
+//       {/* Background Pattern */}
+//       <div className="absolute inset-0 opacity-5">
+//         <div className="absolute top-0 left-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
+//         <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-600 rounded-full filter blur-3xl" />
+//       </div>
+
+//       <div className="container relative z-10">
+//         <motion.div
+//           initial="hidden"
+//           whileInView="visible"
+//           viewport={{ once: true }}
+//           variants={fadeUp}
+//         >
+//           <div className="text-center mb-8">
+//             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+//               Project <span className="text-blue-600">Impact</span>
+//             </h3>
+//             <p className="text-slate-600">
+//               Key metrics that demonstrate our success
+//             </p>
+//           </div>
+
+//           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+//             {portfolio.stats.map((stat, index) => {
+//               const Icon = getStatIcon(stat.label);
+//               return (
+//                 <motion.div
+//                   key={index}
+//                   initial={{ opacity: 0, y: 20 }}
+//                   whileInView={{ opacity: 1, y: 0 }}
+//                   viewport={{ once: true }}
+//                   transition={{ delay: index * 0.1, duration: 0.5 }}
+//                   whileHover={{ y: -5, scale: 1.05 }}
+//                   className="text-center"
+//                 >
+//                   <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50">
+//                     {/* Icon */}
+//                     <div className="relative mb-4 inline-flex">
+//                       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl blur-lg opacity-20" />
+//                       <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 p-3 rounded-xl text-white shadow-md">
+//                         <Icon className="w-6 h-6" />
+//                       </div>
+//                     </div>
+
+//                     {/* Stat Value */}
+//                     <h4 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+//                       {stat.value}
+//                     </h4>
+
+//                     {/* Stat Label */}
+//                     <p className="text-slate-700 font-medium text-sm leading-relaxed">
+//                       {stat.label}
+//                     </p>
+//                   </div>
+//                 </motion.div>
+//               );
+//             })}
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   )}
