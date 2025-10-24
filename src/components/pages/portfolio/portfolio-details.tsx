@@ -603,7 +603,7 @@ export function PortfolioDetailContent({
               </svg>
 
               {/* Feature Nodes */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 relative z-10">
                 {portfolio.features.map((feature, index) => (
                   <motion.div
                     key={index}
@@ -622,9 +622,9 @@ export function PortfolioDetailContent({
                     {/* Feature Node */}
                     <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300 relative">
                       <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-md mb-3">
+                        {/* <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-md mb-3">
                           <Sparkles className="w-6 h-6" />
-                        </div>
+                        </div> */}
                         <p className="text-slate-700 font-medium text-center text-sm leading-relaxed">
                           {feature}
                         </p>

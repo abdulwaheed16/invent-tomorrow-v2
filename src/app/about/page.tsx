@@ -1,11 +1,10 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   certifications,
-  companyStats,
-  companyTimeline,
   companyValues,
   services,
   teamMembers,
@@ -137,8 +136,8 @@ export default function AboutPage() {
             >
               <Card className="p-8 h-full bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center">
-                    <Target className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+                    <Target className="w-8 h-8 text-blue-500" />
                   </div>
                   <h2 className="text-3xl font-bold text-slate-900">
                     Our Mission
@@ -159,10 +158,10 @@ export default function AboutPage() {
               viewport={{ once: true }}
               variants={slideInRight}
             >
-              <Card className="p-8 h-full bg-gradient-to-br from-purple-50 to-white border-2 border-purple-100 hover:shadow-xl transition-shadow">
+              <Card className="p-8 h-full bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:shadow-xl transition-shadow">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-14 h-14 bg-purple-600 rounded-2xl flex items-center justify-center">
-                    <Award className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+                    <Award className="w-8 h-8 text-blue-500" />
                   </div>
                   <h2 className="text-3xl font-bold text-slate-900">
                     Our Vision
@@ -180,7 +179,7 @@ export default function AboutPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -216,53 +215,138 @@ export default function AboutPage() {
               </motion.div>
             ))}
           </div>
-        </section>
+        </section> */}
 
-        {/* Company Values */}
-        <section className="py-16">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
-              Our Core Values
-            </h2>
-            <p className="text-xl text-slate-600">
-              The principles that guide everything we do
-            </p>
-          </motion.div>
+        {/* Company Values - Modern Design */}
+        <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full filter blur-3xl opacity-40"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-40"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-50/20 to-purple-50/20 rounded-full blur-3xl"></div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {companyValues.map((value, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="p-8 h-full hover:shadow-xl hover:border-blue-600 transition-all group">
-                  <div className="text-6xl mb-4 group-hover:scale-110 transition-transform">
-                    {value.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">
-                    {value.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {value.description}
-                  </p>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="container relative z-10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="text-center mb-16"
+            >
+              <Badge className="mb-6 bg-blue-100 text-blue-600 px-4 py-2 text-sm font-medium">
+                Our Philosophy
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                Values That{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                  Drive Us
+                </span>
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                These core principles aren't just words on a wall—they're the
+                foundation of every decision we make and every solution we
+                create.
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {companyValues.map((value, index) => (
+                <motion.div
+                  key={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={scaleIn}
+                  transition={{ delay: index * 0.1 }}
+                  className="group"
+                >
+                  <Card className="relative h-full p-8 border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-white/80 backdrop-blur-sm">
+                    {/* Background Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    {/* Icon Container */}
+                    <div className="relative mb-6">
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
+                        <div className="text-4xl text-blue-600">
+                          {value.icon}
+                        </div>
+                      </div>
+                      {/* Decorative Element */}
+                      {/* <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-blue-500 to-blue-800 rounded-full opacity-60"></div> */}
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">
+                        {value.title}
+                      </h3>
+                      <p className="text-slate-600 leading-relaxed mb-6">
+                        {value.description}
+                      </p>
+
+                      {/* Learn More Link */}
+                      <div className="flex items-center text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span>Learn more</span>
+                        <svg
+                          className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Bottom Accent Line */}
+                    <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Call to Action */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              transition={{ delay: 0.4 }}
+              className="mt-16 text-center"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 shadow-xl">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                  Ready to work with a team that shares your values?
+                </h3>
+                <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                  Let's discuss how our approach can help you achieve your
+                  goals.
+                </p>
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg"
+                  asChild
+                >
+                  <Link
+                    href="https://calendly.com/abdulhaadi-businesschat/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Schedule a Consultation
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </section>
-
         {/* Company Timeline */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -280,7 +364,6 @@ export default function AboutPage() {
 
           <div className="max-w-4xl mx-auto">
             <div className="relative">
-              {/* Timeline Line */}
               <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-blue-200" />
 
               {companyTimeline.map((item, index) => (
@@ -292,7 +375,6 @@ export default function AboutPage() {
                   transition={{ delay: index * 0.1 }}
                   className="relative pl-20 pb-12 last:pb-0"
                 >
-                  {/* Timeline Dot */}
                   <div className="absolute left-5 top-2 w-7 h-7 bg-blue-600 rounded-full border-4 border-white shadow-lg" />
 
                   <Card className="p-6 hover:shadow-lg transition-shadow">
@@ -312,134 +394,208 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
+        {/* Team Section - Simplified Design with Single Blob */}
+        <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full filter blur-3xl opacity-40"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-40"></div>
+          </div>
 
-        {/* Team Section */}
-        <section className="py-16">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-center mb-12"
-          >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Users className="w-10 h-10 text-blue-600" />
-              <h2 className="text-4xl font-bold text-slate-900">
-                Meet Our Team
-              </h2>
-            </div>
-            <p className="text-xl text-slate-600">
-              The talented people behind our success
-            </p>
-          </motion.div>
+          <div className="container relative z-10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              className="text-center mb-16"
+            >
+              <Badge className="mb-6 bg-blue-100 text-blue-600 px-4 py-2 text-sm font-medium">
+                Our Team
+              </Badge>
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Users className="w-10 h-10 text-blue-600" />
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
+                  Meet Our Team
+                </h2>
+              </div>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                The talented people behind our success who bring expertise and
+                passion to every project
+              </p>
+            </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="overflow-hidden hover:shadow-xl transition-all group relative">
-                  {/* Background BLOB */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <motion.div
-                      animate={{
-                        x: [0, 30, 0],
-                        y: [0, -30, 0],
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, 0],
-                      }}
-                      transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                      className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl"
-                    />
-                    <motion.div
-                      animate={{
-                        x: [0, -20, 0],
-                        y: [0, 20, 0],
-                        scale: [1, 0.9, 1],
-                        rotate: [0, -5, 0],
-                      }}
-                      transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                      className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-400/20 rounded-full blur-2xl"
-                    />
-                  </div>
-
-                  {/* Image */}
-                  <div className="relative h-80 bg-slate-100 overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    {/* Gradient Overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-600/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <div className="flex gap-3">
-                          {member.linkedin && (
-                            <a
-                              href={member.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
-                              data-testid={`linkedin-${member.id}`}
-                            >
-                              <Linkedin className="w-5 h-5" />
-                            </a>
-                          )}
-                          {member.twitter && (
-                            <a
-                              href={member.twitter}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
-                              data-testid={`twitter-${member.id}`}
-                            >
-                              <Twitter className="w-5 h-5" />
-                            </a>
-                          )}
-                          <a
-                            href={`mailto:${member.name
-                              .toLowerCase()
-                              .replace(" ", ".")}@inventtomorrow.com`}
-                            className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors"
-                            data-testid={`email-${member.id}`}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              {teamMembers.map((member, index) => (
+                <motion.div
+                  key={member.id}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={scaleIn}
+                  transition={{ delay: index * 0.1 }}
+                  className="relative group"
+                >
+                  {/* Card with Single Blob Background */}
+                  <Card className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white/90 backdrop-blur-sm border-0">
+                    {/* Single Blob Background for All Cards */}
+                    <div className="absolute inset-0 opacity-10">
+                      <svg
+                        className="absolute inset-0 w-full h-full"
+                        viewBox="0 0 400 400"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <linearGradient
+                            id="blobGradient"
+                            x1="0%"
+                            y1="0%"
+                            x2="100%"
+                            y2="100%"
                           >
-                            <Mail className="w-5 h-5" />
-                          </a>
-                        </div>
+                            <stop offset="0%" stopColor="#3B82F6" />
+                            <stop offset="100%" stopColor="#8B5CF6" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M150,50 Q250,50 300,150 T250,300 Q150,350 50,300 T0,150 Q50,50 150,50"
+                          fill="url(#blobGradient)"
+                        />
+                      </svg>
+                    </div>
+
+                    {/* Team Member Image - Inside the Card */}
+                    <div className="relative pt-8 pb-6">
+                      <div className="relative mx-auto w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-300">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          layout="fill"
+                          className="object-cover"
+                        />
                       </div>
                     </div>
-                  </div>
 
-                  {/* Info */}
-                  <div className="p-6 relative z-10">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-blue-600 font-semibold mb-3">
-                      {member.role}
-                    </p>
-                    <p className="text-slate-600 leading-relaxed">
-                      {member.bio}
-                    </p>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
+                    {/* Team Member Info */}
+                    <div className="text-center px-6 pb-8">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                        {member.name}
+                      </h3>
+                      <p className="text-blue-600 font-semibold mb-3">
+                        {member.role}
+                      </p>
+                      <p className="text-slate-600 leading-relaxed text-sm mb-4">
+                        {member.bio}
+                      </p>
+
+                      {/* Decorative Elements */}
+                      <div className="flex justify-center gap-2 mb-4">
+                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                        <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      </div>
+
+                      {/* View Profile Button */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100"
+                      >
+                        View Profile
+                      </Button>
+                    </div>
+
+                    {/* Social Links - Simple Appear on Hover */}
+                    <div className="absolute top-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {member.linkedin && (
+                        <Link
+                          href={member.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 hover:text-white transition-colors"
+                          data-testid={`linkedin-${member.id}`}
+                        >
+                          <Linkedin className="w-5 h-5" />
+                        </Link>
+                      )}
+                      {member.twitter && (
+                        <Link
+                          href={member.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-400 hover:text-white transition-colors"
+                          data-testid={`twitter-${member.id}`}
+                        >
+                          <Twitter className="w-5 h-5" />
+                        </Link>
+                      )}
+                      <Link
+                        href={`mailto:${member.name
+                          .toLowerCase()
+                          .replace(" ", ".")}@inventtomorrow.com`}
+                        className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-600 hover:text-white transition-colors"
+                        data-testid={`email-${member.id}`}
+                      >
+                        <Mail className="w-5 h-5" />
+                      </Link>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Call to Action */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+              transition={{ delay: 0.4 }}
+              className="mt-20 text-center"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 800 400"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <pattern
+                        id="ctaPattern"
+                        x="0"
+                        y="0"
+                        width="40"
+                        height="40"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <circle cx="20" cy="20" r="2" fill="white" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#ctaPattern)" />
+                  </svg>
+                </div>
+
+                <div className="relative z-10">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                    Want to join our talented team?
+                  </h3>
+                  <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+                    We're always looking for passionate people who share our
+                    values.
+                  </p>
+                  <Button
+                    size="lg"
+                    className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg hover:scale-105 transition-transform"
+                    asChild
+                  >
+                    <a href="/careers">View Open Positions</a>
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
