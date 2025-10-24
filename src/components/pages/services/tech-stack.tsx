@@ -1,4 +1,5 @@
 "use client";
+import TechStackCard from "@/components/tech-stack-card";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -140,31 +141,7 @@ export default function TechStack({ techStack }: TechStackProps) {
         >
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {filteredTechStack?.map((tech: TechStack, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                whileHover={{
-                  y: -5,
-                  scale: 1.05,
-                  transition: { duration: 0.2 },
-                }}
-                className="relative group"
-              >
-                <div className="bg-white rounded-2xl p-6 h-full flex flex-col items-center justify-center border border-gray-200 hover:border-[#0066FF]/50 transition-all duration-300 shadow-sm hover:shadow-md">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 bg-[#0066FF]/10">
-                    <TechIcon />
-                  </div>
-                  <p className="font-medium text-gray-800 text-sm text-center">
-                    {tech?.title}
-                  </p>
-                </div>
-
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#0066FF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-              </motion.div>
+              <TechStackCard key={index} tech={tech} index={index} />
             ))}
           </div>
         </motion.div>

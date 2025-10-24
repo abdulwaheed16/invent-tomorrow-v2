@@ -2,16 +2,12 @@
 import BookCallButton from "@/components/ui/buttons/book-call-button";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { HeroData } from "../../../../types/services";
 
 interface ServiceHeroProps {
-  heroData: {
-    title: string;
-    description: string;
-    heroImage: StaticImageData;
-    bgImages: StaticImageData[];
-  };
+  heroData: HeroData;
 }
 
 export default function ServiceHero({ heroData }: ServiceHeroProps) {
@@ -39,7 +35,7 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
           transition={{ duration: 1.5, ease: "easeInOut" }}
         >
           <Image
-            src={image?.src ?? ""}
+            src={image ?? ""}
             alt={`Background image ${index + 1} | Invent Tomorrow | ${title}`}
             layout="fill"
             className="h-full w-full object-cover"

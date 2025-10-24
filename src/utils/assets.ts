@@ -1,3 +1,5 @@
+import placeholderImage from "../../public/images/placeholder.png";
+
 import aiAgentMessageIcon from "../../public/icons/ai-agent-message-icon.svg";
 import alertIcon from "../../public/icons/alert-icon.svg";
 import arrowRight from "../../public/icons/arrow-right-icon.svg";
@@ -55,6 +57,7 @@ import dockerLogo from "../../public/tech-logos/docker-logo.svg";
 import graphqlLogo from "../../public/tech-logos/graphql-logo.svg";
 
 export const images = {
+  placeholderImage,
   inventTomorrowLogo,
   inventTomorrowLogoShort,
   homeBanner,

@@ -1,3 +1,4 @@
+import { ServicesData } from "../../../../types/services";
 import { images, logos } from "../../../utils/assets";
 
 const {
@@ -11,7 +12,7 @@ const {
   techConsultationHero,
 } = images;
 
-export const servicesData = {
+export const servicesData: ServicesData = {
   // ---------------------------------------------------------------------------//
   // WEB APP DEVELOPMENT SERVICE
   // ---------------------------------------------------------------------------//
@@ -20,44 +21,44 @@ export const servicesData = {
     title: "Professional Web Development Services",
     description:
       "Transform your digital presence with cutting-edge web solutions. We build scalable, performant, and beautiful web applications tailored to your business needs.",
-    heroImage: webDevHero1,
-    bgImages: [webDevHero1, cloudHero, webDevHero2],
+    heroImage: webDevHero1.src,
+    bgImages: [webDevHero1.src, cloudHero.src, webDevHero2.src],
     icon: "Code2",
 
     techStack: [
       {
         title: "ReactJs",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "NextJs",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "TypeScript",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "NodeJs",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
 
       {
         title: "PostgreSQL",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
 
       {
         title: "AWS",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Tailwind CSS",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "GraphQL",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
     ],
 
@@ -444,41 +445,41 @@ export const servicesData = {
     title: "Mobile App Development Services",
     description:
       "Create stunning iOS and Android apps that users love. We build native and cross-platform mobile applications with exceptional performance and user experience.",
-    heroImage: mobileHero1,
-    bgImages: [mobileHero1, cloudHero, mobileHero2],
+    heroImage: mobileHero1.src,
+    bgImages: [mobileHero1.src, cloudHero.src, mobileHero2.src],
     icon: "Smartphone",
     techStack: [
       {
         title: "React Native",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Swift",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Kotlin",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Flutter",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Firebase",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "AWS Amplify",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Redux",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "REST APIs",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
     ],
     benefits: [
@@ -850,49 +851,49 @@ export const servicesData = {
     title: "Technology Consultation Services",
     description:
       "Leverage our expertise to navigate the complex tech landscape. We provide strategic guidance to help you choose the right technologies and optimize your IT infrastructure.",
-    heroImage: techConsultationHero,
+    heroImage: techConsultationHero.src,
     bgImages: [
-      techConsultationHero,
-      webDevHero1,
-      mobileHero1,
-      cloudHero,
-      webDevHero2,
-      mobileHero2,
+      techConsultationHero.src,
+      webDevHero1.src,
+      mobileHero1.src,
+      cloudHero.src,
+      webDevHero2.src,
+      mobileHero2.src,
     ],
     icon: "Lightbulb",
     techStack: [
       {
         title: "Cloud Architecture",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "DevOps",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
 
       {
         title: "Security Audits",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Tech Stack Selection",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Digital Transformation",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "AI Integration",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Scalability Planning",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Cost Optimization",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
     ],
     benefits: [
@@ -1188,41 +1189,41 @@ export const servicesData = {
     title: "AI & Machine Learning Solutions",
     description:
       "Unlock the power of artificial intelligence to automate processes, gain insights, and make smarter decisions. We build custom ML models that drive real business value.",
-    heroImage: aiAgentHero1,
-    bgImages: [aiAgentHero1, cloudHero, aiAgentHero2],
+    heroImage: aiAgentHero1.src,
+    bgImages: [aiAgentHero1.src, cloudHero.src, aiAgentHero2.src],
     icon: "Sparkles",
     techStack: [
       {
         title: "OpenAI GPT-4",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "LangChain",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Python",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "TensorFlow",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "RAG Systems",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Vector Databases",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "Pinecone",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
       {
         title: "FastAPI",
-        logo: logos.reactLogo,
+        logo: logos.reactLogo.src,
       },
     ],
     benefits: [
@@ -1406,6 +1407,7 @@ export const servicesData = {
 
     caseStudiesDetailed: [
       {
+        id: "ecommerce-customer-service",
         title: "E-commerce Customer Service Automation",
         client: "RetailMax Corporation",
         industry: "E-commerce",
@@ -1431,6 +1433,7 @@ export const servicesData = {
         },
       },
       {
+        id: "financial-document-automation",
         title: "Financial Document Processing Automation",
         client: "SecureBank Financial",
         industry: "Banking & Finance",
@@ -1461,6 +1464,7 @@ export const servicesData = {
         },
       },
       {
+        id: "healthcare-triage",
         title: "Healthcare Patient Triage System",
         client: "MediCare Health Network",
         industry: "Healthcare",
