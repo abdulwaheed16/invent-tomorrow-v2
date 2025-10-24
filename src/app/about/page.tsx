@@ -112,14 +112,14 @@ export default function AboutPage() {
               About Us
             </Badge>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-              Building Tomorrow's
+              Building Tomorrow&apos;s
               <br />
               Technology Today
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-              We're a team of passionate innovators, developers, and designers
-              committed to transforming ambitious ideas into exceptional digital
-              products.
+              We&apos;re a team of passionate innovators, developers, and
+              designers committed to transforming ambitious ideas into
+              exceptional digital products.
             </p>
           </motion.div>
         </div>
@@ -169,7 +169,7 @@ export default function AboutPage() {
                   </h2>
                 </div>
                 <p className="text-lg text-slate-700 leading-relaxed">
-                  To become the world's most trusted technology partner for
+                  To become the world&apos;s most trusted technology partner for
                   startups and enterprises, recognized for delivering
                   exceptional quality, innovation, and measurable business
                   impact across every project we undertake.
@@ -574,8 +574,8 @@ export default function AboutPage() {
                   Ready to Work With Us?
                 </h2>
                 <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Let's discuss how our team can help bring your vision to life
-                  with cutting-edge technology and exceptional execution.
+                  Let&apos;s discuss how our team can help bring your vision to
+                  life with cutting-edge technology and exceptional execution.
                 </p>
                 <Link
                   href="https://calendly.com/abdulhaadi-businesschat/30min"

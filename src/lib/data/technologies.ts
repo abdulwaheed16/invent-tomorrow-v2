@@ -3,69 +3,70 @@
 import { images } from "@/utils/assets";
 import { TechStackItem } from "../../../types/services";
 
-// Create dummy logos for technologies
-const techLogos: { [key: string]: any } = {
+// disable-next-line @typescript-eslint/no-explicit-any
+const placeholderImage: string = images.placeholderImage.src;
+const techLogos: { [key: string]: string } = {
   // Frontend
-  react: images.placeholderImage,
-  nextjs: images.placeholderImage,
-  vue: images.placeholderImage,
-  angular: images.placeholderImage,
-  typescript: images.placeholderImage,
-  javascript: images.placeholderImage,
-  html: images.placeholderImage,
-  css: images.placeholderImage,
-  tailwind: images.placeholderImage,
-  bootstrap: images.placeholderImage,
+  react: placeholderImage,
+  nextjs: placeholderImage,
+  vue: placeholderImage,
+  angular: placeholderImage,
+  typescript: placeholderImage,
+  javascript: placeholderImage,
+  html: placeholderImage,
+  css: placeholderImage,
+  tailwind: placeholderImage,
+  bootstrap: placeholderImage,
 
   // Backend
-  nodejs: images.placeholderImage,
-  express: images.placeholderImage,
-  python: images.placeholderImage,
-  django: images.placeholderImage,
-  fastapi: images.placeholderImage,
-  java: images.placeholderImage,
-  php: images.placeholderImage,
-  ruby: images.placeholderImage,
-  go: images.placeholderImage,
+  nodejs: placeholderImage,
+  express: placeholderImage,
+  python: placeholderImage,
+  django: placeholderImage,
+  fastapi: placeholderImage,
+  java: placeholderImage,
+  php: placeholderImage,
+  ruby: placeholderImage,
+  go: placeholderImage,
 
   // Database
-  mongodb: images.placeholderImage,
-  postgresql: images.placeholderImage,
-  mysql: images.placeholderImage,
-  redis: images.placeholderImage,
-  firebase: images.placeholderImage,
-  supabase: images.placeholderImage,
+  mongodb: placeholderImage,
+  postgresql: placeholderImage,
+  mysql: placeholderImage,
+  redis: placeholderImage,
+  firebase: placeholderImage,
+  supabase: placeholderImage,
 
   // Cloud & DevOps
-  aws: images.placeholderImage,
-  azure: images.placeholderImage,
-  gcp: images.placeholderImage,
-  docker: images.placeholderImage,
-  kubernetes: images.placeholderImage,
-  vercel: images.placeholderImage,
-  heroku: images.placeholderImage,
+  aws: placeholderImage,
+  azure: placeholderImage,
+  gcp: placeholderImage,
+  docker: placeholderImage,
+  kubernetes: placeholderImage,
+  vercel: placeholderImage,
+  heroku: placeholderImage,
 
   // AI & ML
-  openai: images.placeholderImage,
-  tensorflow: images.placeholderImage,
-  pytorch: images.placeholderImage,
-  langchain: images.placeholderImage,
-  huggingface: images.placeholderImage,
+  openai: placeholderImage,
+  tensorflow: placeholderImage,
+  pytorch: placeholderImage,
+  langchain: placeholderImage,
+  huggingface: placeholderImage,
 
   // Mobile
-  reactnative: images.placeholderImage,
-  flutter: images.placeholderImage,
-  swift: images.placeholderImage,
-  kotlin: images.placeholderImage,
+  reactnative: placeholderImage,
+  flutter: placeholderImage,
+  swift: placeholderImage,
+  kotlin: placeholderImage,
 
   // Other
-  graphql: images.placeholderImage,
-  restapi: images.placeholderImage,
-  webrtc: images.placeholderImage,
-  socketio: images.placeholderImage,
-  stripe: images.placeholderImage,
-  elasticsearch: images.placeholderImage,
-  apachekafka: images.placeholderImage,
+  graphql: placeholderImage,
+  restapi: placeholderImage,
+  webrtc: placeholderImage,
+  socketio: placeholderImage,
+  stripe: placeholderImage,
+  elasticsearch: placeholderImage,
+  apachekafka: placeholderImage,
 };
 
 // Create tech stack items
@@ -77,7 +78,7 @@ export const createTechStackItem = (tech: string): TechStackItem => {
     .replace(/\+/g, "");
   return {
     title: tech,
-    logo: techLogos[logoKey] || images.placeholderImage,
+    logo: techLogos[logoKey] || placeholderImage,
   };
 };
 

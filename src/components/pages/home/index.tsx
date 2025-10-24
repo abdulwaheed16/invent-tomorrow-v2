@@ -3,18 +3,18 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { homeData } from "@/lib/data/home-data";
 import { motion } from "framer-motion";
-import { ArrowRight, PlayIcon } from "lucide-react";
+import { ArrowRight, PlayIcon, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { icons, images } from "../../../utils/assets";
+import CallToAction from "./call-to-action";
 import { CustomCard } from "./custom-card";
 import ProjectsSection from "./projects-section";
 import { StackItem } from "./stack-item";
 import { TechCard } from "./tech-card";
-import CallToAction from "./call-to-action";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -389,7 +389,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
         {/* What's Holding Most Founders Back Section */}
         <section className="py-8">
           <motion.div
@@ -422,7 +421,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-
         {/* Here's How We Help You Win Section */}
         <section className="py-8">
           <motion.div
@@ -455,7 +453,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-
         {/* Our Technologies Section */}
         <section
           className="max-w-6xl mx-auto py-12 flex flex-col items-center justify-center text-center scroll-mt-28"
@@ -494,7 +491,6 @@ export default function Home() {
             ))}
           </div>
         </section>
-
         {/* Development Stack Section */}
         <section
           className="max-w-6xl mx-auto text-center py-12 overflow-hidden scroll-mt-24"
@@ -534,15 +530,24 @@ export default function Home() {
             </Marquee>
           </div>
         </section>
-
         {/* Projects Section */}
         <div className="scroll-mt-24" id="projects">
           <ProjectsSection />
         </div>
-
         {/* Section 9: Call to Action */}
         {/* --------------------------------------------------------------------------------------------------------------- */}
-       <CallToAction/>
+        <CallToAction
+          title={`Let’s Build an Extraordinary\nProduct Together.`}
+          description="Your startup deserves momentum, not delays. Schedule a call today and start building a product ready for users and investors."
+          buttonText="Get in Touch with Our CEO"
+          buttonLink="https://calendly.com/abdulhaadi-businesschat/30min"
+          highlights={[
+            { icon: <Zap size={18} />, text: "No commitment required" },
+            { text: "20-min call" },
+            { text: "Instant insights" },
+          ]}
+          themeColor="blue"
+        />{" "}
       </div>
     </div>
   );
