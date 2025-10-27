@@ -7,10 +7,10 @@ import ServiceHero from "@/components/pages/services/service-hero";
 import ServiceProcessDetailed from "@/components/pages/services/service-process-detailed";
 import TechStack from "@/components/pages/services/tech-stack";
 import Testimonials from "@/components/pages/services/testimonials";
-import { HeroData } from "../../../../types/services";
+import { HeroData } from "../../../../../types/services";
 
-export default function AiAgentsServicePage() {
-  const service = servicesData.aiAgents;
+export default function MobileAppDevelopmentServicePage() {
+  const service = servicesData.mobileAppDevelopment;
 
   const heroData: HeroData = {
     title: service.title,

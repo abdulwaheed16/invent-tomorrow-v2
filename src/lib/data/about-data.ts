@@ -1,5 +1,15 @@
 // About Page Mock Data
 
+import {
+  BookOpen,
+  Gem,
+  Globe,
+  Goal,
+  Handshake,
+  LucideIcon,
+  Zap,
+} from "lucide-react";
+
 export interface TeamMember {
   id: string;
   name: string;
@@ -17,7 +27,7 @@ export interface TimelineItem {
 }
 
 export interface ValueItem {
-  icon: string;
+  icon: LucideIcon;
   title: string;
   description: string;
 }
@@ -115,37 +125,37 @@ export const companyTimeline: TimelineItem[] = [
 
 export const companyValues: ValueItem[] = [
   {
-    icon: "🎯",
+    icon: Goal,
     title: "Innovation First",
     description:
       "We constantly push boundaries, exploring cutting-edge technologies to deliver tomorrow's solutions today.",
   },
   {
-    icon: "🤝",
+    icon: Handshake,
     title: "Client Partnership",
     description:
       "Your success is our success. We work as an extension of your team, committed to your goals.",
   },
   {
-    icon: "💎",
+    icon: Gem,
     title: "Quality Excellence",
     description:
       "We never compromise on quality. Every line of code, every design element is crafted with precision.",
   },
   {
-    icon: "⚡",
+    icon: Zap,
     title: "Agile Execution",
     description:
       "Fast-paced development without sacrificing quality. We deliver MVPs in weeks, not months.",
   },
   {
-    icon: "🌱",
+    icon: BookOpen,
     title: "Continuous Learning",
     description:
       "The tech landscape evolves rapidly. We invest in continuous learning to stay ahead of the curve.",
   },
   {
-    icon: "🌍",
+    icon: Globe,
     title: "Global Impact",
     description:
       "Building solutions that make a difference. From local startups to global enterprises.",

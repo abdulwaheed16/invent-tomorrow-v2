@@ -1,5 +1,3 @@
-import Footer from "@/components/layouts/footer";
-import Header from "@/components/layouts/header";
 import LoadingScreen from "@/components/loading-screen";
 import Providers from "@/components/providers";
 import type { Metadata } from "next";
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
   description: "AI Agency",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -46,11 +44,7 @@ export default function RootLayout({
       <body className={`${segoeUi.className}  antialiased`}>
         <main className="relative scroll-smooth overflow-x-hidden">
           <Providers>
-            <Suspense fallback={<LoadingScreen />}>
-              <Header />
-              {children}
-              <Footer />
-            </Suspense>
+            <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
           </Providers>
         </main>
       </body>
