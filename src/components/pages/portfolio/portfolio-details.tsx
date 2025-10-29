@@ -1,7 +1,12 @@
 "use client";
 
+import CallToAction from "@/components/call-to-action";
+import HeroSectionPage from "@/components/hero-section-page";
 import TechStackCard from "@/components/tech-stack-card";
+import { AnimatedSection } from "@/components/ui/animated-section";
+import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Carousel,
@@ -13,22 +18,16 @@ import {
 } from "@/components/ui/carousel";
 import MediaViewerDialog from "@/components/ui/media-viewer-dialog";
 import { getRelatedPortfolios } from "@/lib/data/portfolio-data";
-import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
-  Award,
   CheckCircle,
-  Clock,
   ExternalLink,
   Lightbulb,
   Maximize2,
   Play,
   Quote,
-  Sparkles,
   Target,
-  TrendingUp,
-  Users,
   Zap,
 } from "lucide-react";
 import Image from "next/image";
@@ -36,24 +35,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PortfolioItem } from "../../../../types/portfolio.types";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay,
-      duration: 0.6,
-      ease: "easeOut" as const,
-    },
-  }),
-};
-
 export function PortfolioDetailContent({
   portfolio,
 }: {
   portfolio: PortfolioItem;
 }) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMediaViewerOpen, setIsMediaViewerOpen] = useState(false);
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const [mainCarouselApi, setMainCarouselApi] = useState<CarouselApi>();
@@ -118,82 +105,46 @@ export function PortfolioDetailContent({
     }
   };
 
-  // Get appropriate icon for each stat
-  const getStatIcon = (label: string) => {
-    const lowerLabel = label.toLowerCase();
-    if (lowerLabel.includes("user") || lowerLabel.includes("customer")) {
-      return Users;
-    }
-    if (
-      lowerLabel.includes("time") ||
-      lowerLabel.includes("hour") ||
-      lowerLabel.includes("speed")
-    ) {
-      return Clock;
-    }
-    if (
-      lowerLabel.includes("growth") ||
-      lowerLabel.includes("increase") ||
-      lowerLabel.includes("revenue")
-    ) {
-      return TrendingUp;
-    }
-    if (lowerLabel.includes("award") || lowerLabel.includes("recognition")) {
-      return Award;
-    }
-    if (lowerLabel.includes("goal") || lowerLabel.includes("target")) {
-      return Target;
-    }
-    return Zap;
-  };
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Back Button */}
-      <div className="container pt-24 pb-8">
-        <Link href="/portfolio">
-          <motion.button
-            whileHover={{ x: -5 }}
-            className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors font-medium"
-            data-testid="back-to-portfolio"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Portfolio
-          </motion.button>
-        </Link>
-      </div>
-
-      {/* Hero Section */}
-      <section className="container pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      {/* ------------------------------------------------- */}
+      {/*  HERO SECTION                                     */}
+      {/* ------------------------------------------------- */}
+      <HeroSectionPage>
+        <div className="container">
+          <AnimatedWrapper animation="fadeUp" delay={0.1} className="max-w-4xl">
+            <Link href="/portfolio" className="cursor-pointer">
+              <div className="flex items-center gap-2 text-white/80 hover:text-white transition-colors font-medium">
+                <ArrowLeft className="w-5 h-5" />
+                Back to Portfolio
+              </div>
+            </Link>
+          </AnimatedWrapper>
+        </div>
+        <div className="container pt-24 pb-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left: Title & Info */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={0.2}
-          >
-            <Badge className="mb-4 bg-blue-100 text-blue-600 px-4 py-2">
+          <AnimatedWrapper animation="fadeUp" delay={0.2}>
+            <Badge className="mb-4 bg-white/20 text-white border-white/30 px-4 py-2">
               {portfolio.category}
             </Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
               {portfolio.title}
             </h1>
-            <p className="text-xl text-slate-600 mb-8">
+            <p className="text-xl text-white/90 mb-8">
               {portfolio.description}
             </p>
 
             {/* Project Meta Info */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <div className="flex items-center gap-2 text-slate-600">
+              <div className="flex items-center gap-2 text-white/80">
                 <span className="font-medium">Client:</span>
                 <span>{portfolio.client}</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-600">
+              <div className="flex items-center gap-2 text-white/80">
                 <span className="font-medium">Year:</span>
                 <span>{portfolio.year}</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-600">
+              <div className="flex items-center gap-2 text-white/80">
                 <span className="font-medium">Duration:</span>
                 <span>{portfolio.duration}</span>
               </div>
@@ -202,44 +153,35 @@ export function PortfolioDetailContent({
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
               {portfolio.liveUrl && (
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <AnimatedWrapper animation="bounceIn" delay={0.4}>
                   <Link
                     href={portfolio.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-gray-100 transition-colors"
                     data-testid="view-live-site"
                   >
                     View Live Site
                     <ExternalLink className="w-5 h-5" />
                   </Link>
-                </motion.div>
+                </AnimatedWrapper>
               )}
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="https://calendly.com/abdulhaadi-businesschat/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-white border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
-                data-testid="discuss-project"
-              >
-                Discuss Similar Project
-              </motion.a>
+              <AnimatedWrapper animation="bounceIn" delay={0.5}>
+                <Link
+                  href="https://calendly.com/abdulhaadi-businesschat/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                  data-testid="discuss-project"
+                >
+                  Discuss Similar Project
+                </Link>
+              </AnimatedWrapper>
             </div>
-          </motion.div>
+          </AnimatedWrapper>
 
           {/* Right: Media Carousel */}
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            custom={0.4}
-            className="relative"
-          >
+          <AnimatedWrapper animation="fadeUp" delay={0.3}>
             {/* Main Media Carousel */}
             <div className="relative">
               <Carousel
@@ -304,8 +246,8 @@ export function PortfolioDetailContent({
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="left-4 bg-black/50 hover:bg-black/70 border-none text-white" />
-                <CarouselNext className="right-4 bg-black/50 hover:bg-black/70 border-none text-white" />
+                <CarouselPrevious className="left-4 bg-white/20 hover:bg-white/30 border-none size-10 text-white" />
+                <CarouselNext className="right-4 bg-white/20 hover:bg-white/30 border-none size-10 text-white" />
               </Carousel>
 
               {/* Progress Indicator */}
@@ -340,9 +282,9 @@ export function PortfolioDetailContent({
                       >
                         <div
                           onClick={() => handleThumbClick(index)}
-                          className={`relative h-20 rounded-lg overflow-hidden cursor-pointer transition-all ${
+                          className={`relative h-20 rounded-lg overflow-hidden ring-1 ring-white/50 cursor-pointer transition-all ${
                             current === index + 1
-                              ? "ring-2 ring-blue-600 scale-105"
+                              ? "ring-2 ring-white scale-105"
                               : "opacity-70 hover:opacity-100"
                           }`}
                           data-testid={`thumbnail-${index}`}
@@ -369,16 +311,16 @@ export function PortfolioDetailContent({
                           )}
 
                           {/* Media Viewer Button - Corner of Thumbnail */}
-                          <button
+                          <Button
                             onClick={(e) => {
                               e.stopPropagation();
                               openMediaViewer(index);
                             }}
-                            className="absolute bottom-1 right-1 bg-black/70 hover:bg-black/90 text-white p-1 rounded transition-all hover:scale-110"
+                            className="absolute bottom-1 right-1 bg-black/70 hover:bg-black/90 text-white p-1 rounded transition-all hover:scale-110 size-6"
                             data-testid={`thumbnail-viewer-${index}`}
                           >
                             <Maximize2 className="w-3 h-3" />
-                          </button>
+                          </Button>
                         </div>
                       </CarouselItem>
                     ))}
@@ -386,12 +328,17 @@ export function PortfolioDetailContent({
                 </Carousel>
               </div>
             )}
-          </motion.div>
+          </AnimatedWrapper>
         </div>
-      </section>
+      </HeroSectionPage>
 
-      {/* Challenge & Solution - Enhanced with Background */}
-      <section className="relative py-16 overflow-hidden">
+      {/* ------------------------------------------------- */}
+      {/* CHALLENGE & SOLUTION SECTION                      */}
+      {/* ------------------------------------------------- */}
+      <AnimatedSection
+        animation="fadeUp"
+        className="relative py-16 overflow-hidden"
+      >
         {/* Background Blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-0 w-96 h-96 bg-red-100 rounded-full filter blur-3xl opacity-40 -translate-x-1/2 -translate-y-1/2" />
@@ -399,30 +346,18 @@ export function PortfolioDetailContent({
         </div>
 
         <div className="container relative z-10">
-          <div className="text-center mb-12">
-            <motion.h2
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
+          <AnimatedWrapper animation="fadeUp" className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               From <span className="text-red-500">Challenge</span> to{" "}
               <span className="text-green-600">Solution</span>
-            </motion.h2>
+            </h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
               How we transformed obstacles into opportunities
             </p>
-          </div>
+          </AnimatedWrapper>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.2}
-            >
+            <AnimatedWrapper animation="slideInLeft" disabledOnMobile={true}>
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl transform rotate-1" />
                 <Card className="relative h-full p-8 border-0 shadow-xl">
@@ -439,15 +374,9 @@ export function PortfolioDetailContent({
                   </p>
                 </Card>
               </div>
-            </motion.div>
+            </AnimatedWrapper>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={0.4}
-            >
+            <AnimatedWrapper animation="slideInRight" disabledOnMobile={true}>
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl transform -rotate-1" />
                 <Card className="relative h-full p-8 border-0 shadow-xl">
@@ -464,60 +393,113 @@ export function PortfolioDetailContent({
                   </p>
                 </Card>
               </div>
-            </motion.div>
+            </AnimatedWrapper>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      {/* Key Results */}
-      <section className="relative py-16 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600 rounded-full filter blur-3xl" />
+      {/* ------------------------------------------------- */}
+      {/*  KEY RESULTS SECTION                              */}
+      {/* ------------------------------------------------- */}
+      <AnimatedSection
+        animation="fadeUp"
+        className="relative py-16 bg-gradient-to-br from-blue-50 to-indigo-100 overflow-hidden"
+      >
+        {/* Enhanced Background Pattern */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full filter blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/10 rounded-full filter blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/5 rounded-full filter blur-3xl" />
         </div>
 
         <div className="container relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="max-w-4xl mx-auto text-center"
-          >
+          <AnimatedWrapper animation="fadeUp" className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Key Results & <span className="text-blue-600">Impact</span>
             </h3>
             <p className="text-slate-600 mb-12 max-w-2xl mx-auto">
               Tangible outcomes that demonstrate the value we delivered
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-              {portfolio.results.map((result, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/50"
+          </AnimatedWrapper>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {portfolio.results.map((result, index) => (
+              <AnimatedWrapper
+                key={index}
+                animation="slideInLeft"
+                delay={index * 0.1}
+                disabledOnMobile={true}
+                className="group"
+              >
+                <div
+                  className={`relative bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/50 transition-all duration-300 cursor-pointer overflow-hidden ${
+                    hoveredIndex === index
+                      ? "transform scale-105 shadow-2xl bg-white/95"
+                      : hoveredIndex !== null
+                        ? "opacity-60"
+                        : "hover:shadow-xl"
+                  }`}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12  rounded-full flex items-center justify-center text-green-500 ring ring-green-500 shadow-md flex-shrink-0">
-                      <CheckCircle className="w-6 h-6 " />
+                  {/* Animated Background Gradient */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-blue-500/5 to-indigo-500/5 rounded-2xl transition-opacity duration-500 ${
+                      hoveredIndex === index ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+
+                  {/* Subtle Pattern Overlay */}
+                  <div
+                    className={`absolute inset-0 opacity-0 transition-opacity duration-500 ${
+                      hoveredIndex === index ? "opacity-100" : ""
+                    }`}
+                  >
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-blue-400/30 rounded-full" />
+                    <div className="absolute top-8 left-8 w-1 h-1 bg-indigo-400/30 rounded-full" />
+                    <div className="absolute bottom-8 right-8 w-2 h-2 bg-blue-400/30 rounded-full" />
+                    <div className="absolute bottom-4 right-4 w-1 h-1 bg-indigo-400/30 rounded-full" />
+                  </div>
+
+                  <div className="flex items-center gap-4 relative z-10">
+                    {/* Animated Icon Container */}
+                    <div
+                      className={`w-12 h-12 rounded-full flex items-center justify-center text-green-500 shadow-md flex-shrink-0 transition-all duration-300 ${
+                        hoveredIndex === index
+                          ? "bg-green-100 ring-4 ring-green-500/30 transform rotate-12"
+                          : "bg-white ring-2 ring-green-500"
+                      }`}
+                    >
+                      <CheckCircle
+                        className={`w-6 h-6 transition-all duration-300 ${
+                          hoveredIndex === index ? "text-green-600" : ""
+                        }`}
+                      />
                     </div>
-                    <p className="text-slate-700 font-medium text-lg leading-relaxed">
+
+                    {/* Result Text */}
+                    <p
+                      className={`text-slate-700 font-medium text-lg leading-relaxed transition-all duration-300 ${
+                        hoveredIndex === index ? "text-slate-900" : ""
+                      }`}
+                    >
                       {result}
                     </p>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                </div>
+              </AnimatedWrapper>
+            ))}
+          </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      {/* Technologies Used - Enhanced with Background */}
-      <section className="relative py-16 overflow-hidden">
+      {/* ------------------------------------------------- */}
+      {/*  TECHNOLOGIES USED SECTION                        */}
+      {/* ------------------------------------------------- */}
+      <AnimatedSection
+        animation="fadeUp"
+        className="relative py-16 overflow-hidden"
+      >
         {/* Background Blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-30" />
@@ -525,173 +507,145 @@ export function PortfolioDetailContent({
         </div>
 
         <div className="container relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="text-center mb-12"
-          >
+          <AnimatedWrapper animation="fadeUp" className="text-center mb-12">
             <h3 className="text-4xl font-bold text-slate-900 mb-4">
               Technologies <span className="text-blue-600">We Used</span>
             </h3>
             <p className="text-slate-600 text-lg max-w-2xl mx-auto">
               Industry-leading tools and frameworks powering this solution
             </p>
-          </motion.div>
+          </AnimatedWrapper>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {portfolio.technologies.map((tech, index) => (
-                <TechStackCard key={index} tech={tech} index={index} />
+                <AnimatedWrapper
+                  key={index}
+                  animation="zoomIn"
+                  delay={index * 0.05}
+                  disabledOnMobile={true}
+                >
+                  <TechStackCard tech={tech} index={index} />
+                </AnimatedWrapper>
               ))}
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      {/* Key Features - Enhanced with Graphical Pattern */}
-      <section className="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-slate-600 rounded-full filter blur-3xl" />
+      {/* ------------------------------------------------- */}
+      {/* ---------------- KEY FEATURES SECTION ----------- */}
+      {/* ------------------------------------------------- */}
+      <AnimatedSection
+        animation="fadeUp"
+        className="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden"
+      >
+        {/* Multi-layer Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-blue-600/5 rounded-full filter blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-64 h-64 bg-slate-600/5 rounded-full filter blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/5 rounded-full filter blur-3xl" />
         </div>
 
         <div className="container relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="max-w-4xl mx-auto text-center"
-          >
+          <AnimatedWrapper animation="fadeUp" className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Key Features <span className="text-blue-600">Delivered</span>
             </h3>
             <p className="text-slate-600 mb-12 max-w-2xl mx-auto">
               Innovative functionalities that set this project apart
             </p>
+          </AnimatedWrapper>
 
-            {/* Graphical Feature Flow */}
-            <div className="relative mt-8">
-              {/* Connection Lines Background */}
-              <svg
-                className="absolute inset-0 w-full h-full"
-                viewBox="0 0 800 400"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+          {/* Feature Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {portfolio.features.map((feature, index) => (
+              <AnimatedWrapper
+                key={index}
+                animation="zoomIn"
+                delay={index * 0.1}
+                disabledOnMobile={true}
+                className="group"
               >
-                <path
-                  d="M100 200H200M300 200H400M500 200H600M700 200H800"
-                  stroke="#E2E8F0"
-                  strokeWidth="2"
-                  strokeDasharray="5 5"
-                />
-                <path
-                  d="M100 100H200M300 100H400M500 100H600M700 100H800"
-                  stroke="#E2E8F0"
-                  strokeWidth="2"
-                  strokeDasharray="5 5"
-                />
-                <path
-                  d="M100 300H200M300 300H400M500 300H600M700 300H800"
-                  stroke="#E2E8F0"
-                  strokeWidth="2"
-                  strokeDasharray="5 5"
-                />
-              </svg>
+                <div className="relative bg-white/90 backdrop-blur-sm p-6 rounded-tl-4xl rounded-br-4xl sm:rounded-tl-full sm:rounded-br-full shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between overflow-hidden">
+                  {/* Animated Background Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Feature Nodes */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 relative z-10">
-                {portfolio.features.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                    className="relative"
-                  >
-                    {/* Connection Lines */}
-                    {index < portfolio.features.length - 1 && (
-                      <div className="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-gradient-to-r from-blue-300 to-transparent"></div>
-                    )}
+                  {/* Feature Number - More Attractive */}
+                  <div className="absolute top-4 left-10 text-5xl font-bold text-slate-200 select-none transition-all duration-300 group-hover:text-blue-200 group-hover:scale-110 group-hover:rotate-3">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
 
-                    {/* Feature Node */}
-                    <div className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/50 hover:shadow-xl transition-all duration-300 relative">
-                      <div className="flex flex-col items-center">
-                        {/* <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-md mb-3">
-                          <Sparkles className="w-6 h-6" />
-                        </div> */}
-                        <p className="text-slate-700 font-medium text-center text-sm leading-relaxed">
-                          {feature}
-                        </p>
-                      </div>
+                  {/* Decorative Circle Behind Number */}
+                  <div className="absolute top-2 left-8 w-16 h-16 bg-blue-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-blue-500/20 group-hover:scale-150" />
 
-                      {/* Node Number */}
-                      <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
-                        {index + 1}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+                  {/* Feature Content */}
+                  <div className="flex flex-col items-center justify-center h-full relative z-10">
+                    <p className="text-slate-700 font-normal text-center text-md leading-relaxed transition-all duration-300 group-hover:text-slate-800 group-hover:scale-105">
+                      {feature}
+                    </p>
+                  </div>
 
-      {/* Testimonial - Enhanced with Background */}
-      {portfolio.testimonial && (
-        <section className="relative py-16 overflow-hidden">
-          {/* Background Blobs */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-20" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-20" />
+                  {/* Decorative Element at Bottom Right */}
+                  <div className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-20 transition-all duration-500 group-hover:scale-150" />
+                </div>
+              </AnimatedWrapper>
+            ))}
           </div>
+        </div>
+      </AnimatedSection>
 
-          <div className="container relative z-10">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="max-w-4xl mx-auto"
-            >
-              <div className="bg-gradient-to-br from-blue-50 via-white to-purple-50 rounded-3xl p-12 relative overflow-hidden shadow-xl">
-                <Quote className="absolute top-8 left-8 w-16 h-16 text-blue-200" />
-                <div className="relative z-10">
-                  <p className="text-2xl text-slate-800 mb-8 leading-relaxed italic">
+      {/* ------------------------------------------------- */}
+      {/* TESTIMONIAL SECTION                               */}
+      {/* ------------------------------------------------- */}
+
+      {portfolio.testimonial && (
+        <AnimatedSection animation="fadeUp" className="py-16">
+          <div className="container">
+            <div className="max-w-4xl mx-auto">
+              <AnimatedWrapper animation="slideInRight" delay={0.2}>
+                <div className="text-center">
+                  {/* Quote Icon */}
+                  <Quote className="w-16 h-16 text-blue-200 mx-auto mb-8" />
+
+                  {/* Testimonial Quote */}
+                  <blockquote className="text-2xl lg:text-3xl font-medium leading-relaxed mb-12 max-w-4xl mx-auto text-slate-800">
                     {portfolio.testimonial.quote}
-                  </p>
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                  </blockquote>
+
+                  {/* Author Information */}
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                       {portfolio.testimonial.author.charAt(0)}
                     </div>
-                    <div className="text-left">
-                      <p className="font-bold text-slate-900 text-lg">
+
+                    <div>
+                      <div className="font-semibold text-lg text-slate-900">
                         {portfolio.testimonial.author}
-                      </p>
-                      <p className="text-slate-600">
+                      </div>
+                      <div className="text-slate-600">
                         {portfolio.testimonial.role}
-                      </p>
-                      <p className="text-slate-500 text-sm">
+                      </div>
+                      <div className="text-slate-500 text-sm">
                         {portfolio.testimonial.company}
-                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </AnimatedWrapper>
+            </div>
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
-      {/* Related Projects - Enhanced with Background */}
+      {/* ------------------------------------------------- */}
+      {/* -------------- RELATED PROJECTS SECTION --------- */}
+      {/* ------------------------------------------------- */}
       {relatedProjects.length > 0 && (
-        <section className="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
+        <AnimatedSection
+          animation="fadeUp"
+          className="relative py-16 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden"
+        >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
@@ -699,47 +653,40 @@ export function PortfolioDetailContent({
           </div>
 
           <div className="container relative z-10">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-            >
-              <div className="text-center mb-12">
-                <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                  Related <span className="text-blue-600">Projects</span>
-                </h3>
-                <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                  Explore more of our work in similar categories
-                </p>
-              </div>
+            <AnimatedWrapper animation="fadeUp" className="text-center mb-12">
+              <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Related <span className="text-blue-600">Projects</span>
+              </h3>
+              <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+                Explore more of our work in similar categories
+              </p>
+            </AnimatedWrapper>
 
-              {/* Projects Carousel */}
-              <div className="relative">
-                <Carousel
-                  className="w-full"
-                  opts={{
-                    align: "start",
-                    loop: true,
-                  }}
-                >
-                  <CarouselContent className="-ml-4">
-                    {relatedProjects.map((project, index) => (
-                      <CarouselItem
+            {/* Projects Carousel */}
+            <div className="relative">
+              <Carousel
+                className="w-full"
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+              >
+                <CarouselContent className="-ml-4">
+                  {relatedProjects.map((project, index) => (
+                    <CarouselItem
+                      key={project.id}
+                      className="pl-4 md:basis-1/2 lg:basis-1/3"
+                    >
+                      <AnimatedWrapper
                         key={project.id}
-                        className="pl-4 md:basis-1/2 lg:basis-1/3"
+                        animation="zoomIn"
+                        delay={index * 0.1}
+                        disabledOnMobile={true}
                       >
                         <Link href={`/portfolio/${project.slug}`}>
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -8 }}
-                            className="h-full group"
-                          >
+                          <div className="h-full group">
                             <div className="bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full border border-white/50">
-                              <div className="relative h-48 overflow-hidden">
+                              <div className="relative h-64 overflow-hidden">
                                 <Image
                                   src={project.images[0]}
                                   alt={project.title}
@@ -751,7 +698,7 @@ export function PortfolioDetailContent({
 
                                 {/* View Project Button - Appears on hover */}
                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                  <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full font-medium text-slate-900">
+                                  <div className="bg-white/90 backdrop-blur-sm  px-4 py-2 rounded-full font-medium text-slate-900 cursor-pointer">
                                     View Project
                                     <ArrowRight className="w-4 h-4 ml-1 inline" />
                                   </div>
@@ -776,84 +723,73 @@ export function PortfolioDetailContent({
                                 </div>
                               </div>
                             </div>
-                          </motion.div>
+                          </div>
                         </Link>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious className="left-2 bg-white/90 hover:bg-white border-slate-200 text-slate-700 shadow-lg" />
-                  <CarouselNext className="right-2 bg-white/90 hover:bg-white border-slate-200 text-slate-700 shadow-lg" />
-                </Carousel>
-              </div>
+                      </AnimatedWrapper>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious
+                  className="left-2 bg-white/90 hover:bg-white border-slate-200 rounded-lg size-12  text-slate-700 shadow-lg"
+                  disabled={relatedProjects.length <= 1}
+                />
+                <CarouselNext className="right-2 bg-white/90 hover:bg-white border-slate-200 rounded-lg size-12  text-slate-700 shadow-lg" />
+              </Carousel>
+            </div>
 
-              {/* View All Projects Button */}
-              <div className="text-center mt-12">
+            {/* View All Projects Button */}
+            <div className="text-center my-12">
+              <AnimatedWrapper animation="bounceIn" delay={0.2}>
                 <Link href="/portfolio">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition-colors"
-                  >
+                  <Button className="inline-flex items-center gap-2 bg-blue-600 text-white h-12 w-48 px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition-colors cursor-pointer">
                     View All Projects
                     <ExternalLink className="w-5 h-5" />
-                  </motion.button>
+                  </Button>
                 </Link>
-              </div>
-            </motion.div>
+              </AnimatedWrapper>
+            </div>
           </div>
-        </section>
+        </AnimatedSection>
       )}
 
-      {/* CTA - Enhanced with Background */}
-      <section className="relative py-16 overflow-hidden">
-        {/* Background Blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl opacity-10" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-10" />
-        </div>
+      {/* ------------------------------------------------- */}
+      {/* ------------------- CTA SECTION ----------------- */}
+      {/* ------------------------------------------------- */}
 
-        <div className="container relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-          >
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-3xl p-12 md:p-16 relative overflow-hidden shadow-2xl">
-              <div className="relative z-10 text-center">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <Sparkles className="w-8 h-8 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Want Similar Results for Your Project?
-                </h3>
-                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Let&apos;s discuss how we can help you achieve exceptional
-                  results like this.
-                </p>
-                <Link
-                  href="https://calendly.com/abdulhaadi-businesschat/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold shadow-lg hover:bg-slate-100 transition-colors"
-                    data-testid="cta-lets-talk"
-                  >
-                    Let&apos;s Talk About Your Project
-                  </motion.button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ------------------------------------------------- */}
+      {/* ------------------- CTA SECTION ----------------- */}
+      {/* ------------------------------------------------- */}
+      <div className="container">
+        <CallToAction
+          title={`Want Similar Results\nfor Your Project?`}
+          subtitle="Project Inquiry"
+          description="Let's discuss how we can help you achieve exceptional results like this. Our team is ready to bring your vision to life with the same expertise and dedication."
+          buttonText="Let's Talk About Your Project"
+          highlights={[
+            {
+              icon: <Zap className="w-5 h-5" />,
+              text: "Free project consultation",
+            },
+            {
+              icon: (
+                <span className="w-2 h-2 rounded-full bg-white inline-block"></span>
+              ),
+              text: "30-minute discovery call",
+            },
+            {
+              icon: (
+                <span className="w-2 h-2 rounded-full bg-white inline-block"></span>
+              ),
+              text: "Custom solution roadmap",
+            },
+          ]}
+          themeColor="blue"
+        />
+      </div>
 
-      {/* Media Viewer Dialog */}
+      {/* ------------------------------------------------- */}
+      {/* -------------- MEDIA VIEWER DIALOG -------------- */}
+      {/* ------------------------------------------------- */}
       <MediaViewerDialog
         isOpen={isMediaViewerOpen}
         onClose={() => setIsMediaViewerOpen(false)}
@@ -863,69 +799,3 @@ export function PortfolioDetailContent({
     </div>
   );
 }
-
-//  {/* Stats Section */}
-//   {portfolio.stats && (
-//     <section className="relative py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 overflow-hidden">
-//       {/* Background Pattern */}
-//       <div className="absolute inset-0 opacity-5">
-//         <div className="absolute top-0 left-0 w-64 h-64 bg-blue-600 rounded-full filter blur-3xl" />
-//         <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-600 rounded-full filter blur-3xl" />
-//       </div>
-
-//       <div className="container relative z-10">
-//         <motion.div
-//           initial="hidden"
-//           whileInView="visible"
-//           viewport={{ once: true }}
-//           variants={fadeUp}
-//         >
-//           <div className="text-center mb-8">
-//             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-//               Project <span className="text-blue-600">Impact</span>
-//             </h3>
-//             <p className="text-slate-600">
-//               Key metrics that demonstrate our success
-//             </p>
-//           </div>
-
-//           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-//             {portfolio.stats.map((stat, index) => {
-//               const Icon = getStatIcon(stat.label);
-//               return (
-//                 <motion.div
-//                   key={index}
-//                   initial={{ opacity: 0, y: 20 }}
-//                   whileInView={{ opacity: 1, y: 0 }}
-//                   viewport={{ once: true }}
-//                   transition={{ delay: index * 0.1, duration: 0.5 }}
-//                   whileHover={{ y: -5, scale: 1.05 }}
-//                   className="text-center"
-//                 >
-//                   <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50">
-//                     {/* Icon */}
-//                     <div className="relative mb-4 inline-flex">
-//                       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl blur-lg opacity-20" />
-//                       <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 p-3 rounded-xl text-white shadow-md">
-//                         <Icon className="w-6 h-6" />
-//                       </div>
-//                     </div>
-
-//                     {/* Stat Value */}
-//                     <h4 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-//                       {stat.value}
-//                     </h4>
-
-//                     {/* Stat Label */}
-//                     <p className="text-slate-700 font-medium text-sm leading-relaxed">
-//                       {stat.label}
-//                     </p>
-//                   </div>
-//                 </motion.div>
-//               );
-//             })}
-//           </div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   )}

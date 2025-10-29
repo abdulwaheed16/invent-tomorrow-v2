@@ -7,7 +7,7 @@ import { images } from "../utils/assets";
 export default function LoadingScreen() {
   return (
     <div
-      className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-700 text-white overflow-hidden"
+      className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white overflow-hidden"
       id="app-loader"
     >
       {/* Animated Logo */}

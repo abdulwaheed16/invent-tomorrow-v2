@@ -1,4 +1,4 @@
 "use client";
 export default function ErrorPage() {
-  return <div>Something went wrong - dashboard page</div>;
+  return <div>Something went wrong | try again later</div>;
 }

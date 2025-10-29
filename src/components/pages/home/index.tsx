@@ -1,4 +1,5 @@
 "use client";
+import CallToAction from "@/components/call-to-action";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { homeData } from "@/lib/data/home-data";
@@ -10,7 +11,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import { icons, images } from "../../../utils/assets";
-import CallToAction from "./call-to-action";
 import { CustomCard } from "./custom-card";
 import ProjectsSection from "./projects-section";
 import { StackItem } from "./stack-item";
@@ -537,17 +537,30 @@ export default function Home() {
         {/* Section 9: Call to Action */}
         {/* --------------------------------------------------------------------------------------------------------------- */}
         <CallToAction
-          title={`Let’s Build an Extraordinary\nProduct Together.`}
+          title="Let's Build an Extraordinary\nProduct Together."
+          subtitle="Ready to Transform Your Idea?"
           description="Your startup deserves momentum, not delays. Schedule a call today and start building a product ready for users and investors."
           buttonText="Get in Touch with Our CEO"
-          buttonLink="https://calendly.com/abdulhaadi-businesschat/30min"
           highlights={[
-            { icon: <Zap size={18} />, text: "No commitment required" },
-            { text: "20-min call" },
-            { text: "Instant insights" },
+            {
+              icon: <Zap className="w-5 h-5" />,
+              text: "No commitment required",
+            },
+            {
+              icon: (
+                <span className="w-2 h-2 rounded-full bg-white inline-block"></span>
+              ),
+              text: "20-min call",
+            },
+            {
+              icon: (
+                <span className="w-2 h-2 rounded-full bg-white inline-block"></span>
+              ),
+              text: "Instant insights",
+            },
           ]}
           themeColor="blue"
-        />{" "}
+        />
       </div>
     </div>
   );
