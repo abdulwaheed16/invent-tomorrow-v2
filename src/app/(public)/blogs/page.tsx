@@ -1,5 +1,5 @@
-import Blog from "@/components/pages/blogs";
+import BlogPageClient from "@/components/pages/blogs";
 
 export default function BlogPage() {
-  return <Blog />;
+  return <BlogPageClient />;
 }
