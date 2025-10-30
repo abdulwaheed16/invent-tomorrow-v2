@@ -5,7 +5,7 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { getAllBlogPosts, type BlogPost } from "@/lib/data/blog-data";
+import { type BlogPost } from "@/lib/data/blog-data";
 import { motion } from "framer-motion";
 import { ArrowRight, Grid3X3, List, Search } from "lucide-react";
 import Image from "next/image";
@@ -42,20 +42,18 @@ const sortOptions = [
   { value: "trending", label: "Trending" },
 ];
 
-export default function BlogPageClient() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+interface BlogPageProps {
+  blogPosts: BlogPost[];
+}
+
+export default function BlogPageClient({ blogPosts }: BlogPageProps) {
+  const [posts, setPosts] = useState<BlogPost[]>(blogPosts);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(blogPosts);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("latest");
   const [searchTerm, setSearchTerm] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-
-  useEffect(() => {
-    const allPosts = getAllBlogPosts();
-    setPosts(allPosts);
-    setFilteredPosts(allPosts);
-  }, []);
 
   useEffect(() => {
     let filtered = posts;

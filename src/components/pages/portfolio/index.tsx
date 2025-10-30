@@ -7,13 +7,19 @@ import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { portfolioCategories, portfolioItems } from "@/lib/data/portfolio-data";
+import { portfolioCategories } from "@/lib/data/portfolio-data";
 import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { PortfolioItem } from "../../../../types/portfolio.types";
 
-export default function Portfolio() {
+
+interface PortfolioPageProps {
+  portfolioItems: PortfolioItem[];
+}
+
+export default function PortfolioPageClient({portfolioItems}: PortfolioPageProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredPortfolios =

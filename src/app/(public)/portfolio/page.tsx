@@ -1,5 +1,6 @@
-import Portfolio from "@/components/pages/portfolio";
+import PortfolioPageClient from "@/components/pages/portfolio";
+import { portfolioItems } from "@/lib/data/portfolio-data";
 
 export default function PortfolioPage() {
-  return <Portfolio />;
+  return <PortfolioPageClient portfolioItems={portfolioItems} />;
 }
