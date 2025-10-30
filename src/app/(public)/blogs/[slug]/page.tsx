@@ -1,4 +1,4 @@
-import { BlogDetailPageClient } from "@/components/pages/blogs/blog-details";
+import { BlogDetailContent } from "@/components/pages/blogs/blog-details";
 import { getBlogBySlug } from "@/lib/data/blog-data";
 import { notFound } from "next/navigation";
 
@@ -14,5 +14,5 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
     notFound();
   }
 
-  return <BlogDetailPageClient post={post} />;
+  return <BlogDetailContent post={post} />;
 }

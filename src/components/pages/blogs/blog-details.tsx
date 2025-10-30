@@ -1,35 +1,28 @@
 "use client";
 
-import { AnimatedSection } from "@/components/ui/animated-section";
-import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getRelatedBlogPosts, type BlogPost } from "@/lib/data/blog-data";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
   Calendar,
-  Check,
   ChevronLeft,
   Clock,
-  Copy,
   Eye,
-  Facebook,
   Hash,
-  Linkedin,
-  Mail,
+  Heart,
   Menu,
+  MessageCircle,
   Share2,
-  TrendingUp,
-  Twitter,
   X,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -51,170 +44,33 @@ interface HeadingNode {
   children: HeadingNode[];
 }
 
-// Share Dialog Component
-function ShareDialog({
-  isOpen,
-  onClose,
-  title,
-  url,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  url: string;
-}) {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopyLink = useCallback(() => {
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [url]);
-
-  const shareOptions = [
-    {
-      name: "Twitter",
-      icon: <Twitter className="w-5 h-5" />,
-      color: "bg-sky-500 hover:bg-sky-600",
-      action: () => {
-        window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-            title
-          )}&url=${encodeURIComponent(url)}`,
-          "_blank"
-        );
-      },
-    },
-    {
-      name: "Facebook",
-      icon: <Facebook className="w-5 h-5" />,
-      color: "bg-blue-600 hover:bg-blue-700",
-      action: () => {
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-      },
-    },
-    {
-      name: "LinkedIn",
-      icon: <Linkedin className="w-5 h-5" />,
-      color: "bg-blue-700 hover:bg-blue-800",
-      action: () => {
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-            url
-          )}`,
-          "_blank"
-        );
-      },
-    },
-    {
-      name: "Email",
-      icon: <Mail className="w-5 h-5" />,
-      color: "bg-gray-600 hover:bg-gray-700",
-      action: () => {
-        window.open(
-          `mailto:?subject=${encodeURIComponent(
-            title
-          )}&body=${encodeURIComponent(`Check out this article: ${url}`)}`,
-          "_blank"
-        );
-      },
-    },
-  ];
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 400 }}
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-slate-900">
-                Share Article
-              </h3>
-              <button
-                onClick={onClose}
-                className="p-2 rounded-full hover:bg-slate-100 transition-colors"
-              >
-                <X className="w-5 h-5 text-slate-500" />
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              {shareOptions.map((option) => (
-                <motion.button
-                  key={option.name}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={option.action}
-                  className={`${option.color} text-white p-3 rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer`}
-                >
-                  {option.icon}
-                  <span className="font-medium">{option.name}</span>
-                </motion.button>
-              ))}
-            </div>
-
-            <div className="border-t border-slate-200 pt-4">
-              <p className="text-sm text-slate-600 mb-3">Or copy link</p>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-slate-100 rounded-lg px-3 py-2 text-sm text-slate-700 truncate">
-                  {url}
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleCopyLink}
-                  className={`p-2 rounded-lg transition-colors ${
-                    copied
-                      ? "bg-green-100 text-green-600"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                  }`}
-                >
-                  {copied ? (
-                    <Check className="w-5 h-5" />
-                  ) : (
-                    <Copy className="w-5 h-5" />
-                  )}
-                </motion.button>
-              </div>
-              {copied && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-sm text-green-600 mt-2"
-                >
-                  Link copied to clipboard!
-                </motion.p>
-              )}
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
+// Custom scrollbar styles
+const scrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #2563eb, #7c3aed);
+  }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 #8b5cf6 transparent;
+  }
+`;
 
 // Skeleton Loading Component
 function BlogDetailSkeleton() {
   return (
     <div className="min-h-screen bg-white">
+      <style jsx>{scrollbarStyles}</style>
       {/* Back Button */}
       <div className="container pt-24 pb-8">
         <div className="flex items-center gap-2">
@@ -230,11 +86,30 @@ function BlogDetailSkeleton() {
 
       {/* Article Content */}
       <section className="container py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <Skeleton key={i} className="w-full h-4" />
-            ))}
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-3">
+              <Card className="p-8 md:p-12">
+                <div className="space-y-4">
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                    <Skeleton key={i} className="w-full h-4" />
+                  ))}
+                </div>
+              </Card>
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <Card className="p-4">
+                <Skeleton className="w-full h-6 mb-3" />
+                <div className="space-y-2">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Skeleton key={i} className="w-full h-5" />
+                  ))}
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -289,7 +164,7 @@ function extractHeadings(htmlContent: string): HeadingNode[] {
 
 // Custom hook to handle smooth scrolling
 function useSmoothScroll() {
-  const scrollToHeading = useCallback((headingId: string) => {
+  const scrollToHeading = (headingId: string) => {
     // First, ensure the heading element exists
     let element = document.getElementById(headingId);
 
@@ -334,7 +209,7 @@ function useSmoothScroll() {
         element?.classList.remove("ring-2", "ring-blue-500", "ring-offset-2");
       }, 2000);
     }
-  }, []);
+  };
 
   return { scrollToHeading };
 }
@@ -357,18 +232,15 @@ function TableOfContentsItem({
   };
 
   return (
-    <div
-      key={heading.id}
-      className="border-b border-slate-200 last:border-b-0 w-full"
-    >
-      <motion.button
+    <div key={heading.id} className="border-b border-slate-100 last:border-b-0">
+      <button
         onClick={handleClick}
-        className={`w-full text-left py-2 px-2 hover:text-blue-600 transition-all duration-200 flex items-center gap-2 rounded-md cursor-pointer ${
+        className={`w-full text-left py-2 px-2 hover:text-blue-600 transition-all duration-200 flex items-center gap-2 rounded-md ${
           level === 0
             ? "font-semibold text-sm"
             : level === 1
-              ? "font-medium text-xs pl-3"
-              : "text-xs pl-6"
+            ? "font-medium text-xs pl-3"
+            : "text-xs pl-6"
         } ${
           isActive
             ? "text-blue-600 bg-blue-50 shadow-sm"
@@ -376,34 +248,28 @@ function TableOfContentsItem({
         }`}
       >
         {level === 0 && (
-          <motion.span
+          <span
             className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
               isActive ? "bg-blue-600" : "bg-slate-400"
             }`}
-            animate={{ scale: isActive ? [1, 1.5, 1] : 1 }}
-            transition={{ duration: 0.3 }}
           />
         )}
         {level === 1 && (
-          <motion.span
+          <span
             className={`w-1 h-1 rounded-full flex-shrink-0 ml-1 ${
-              isActive ? "bg-blue-500" : "bg-slate-300"
+              isActive ? "bg-blue-500" : "bg-blue-300"
             }`}
-            animate={{ scale: isActive ? [1, 1.5, 1] : 1 }}
-            transition={{ duration: 0.3 }}
           />
         )}
         {level === 2 && (
-          <motion.span
+          <span
             className={`w-0.5 h-0.5 rounded-full flex-shrink-0 ml-2 ${
               isActive ? "bg-slate-600" : "bg-slate-300"
             }`}
-            animate={{ scale: isActive ? [1, 1.5, 1] : 1 }}
-            transition={{ duration: 0.3 }}
           />
         )}
         <span className="truncate">{heading.text}</span>
-      </motion.button>
+      </button>
       {heading.children.length > 0 && (
         <div className="ml-1">
           {heading.children.map((child) => (
@@ -421,18 +287,18 @@ function TableOfContentsItem({
   );
 }
 
-export function BlogDetailPageClient({ post }: { post: BlogPost }) {
+export function BlogDetailContent({ post }: { post: BlogPost }) {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+
   const [headings, setHeadings] = useState<HeadingNode[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeHeading, setActiveHeading] = useState<string>("");
   const [isMobile, setIsMobile] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [sidebarHeight, setSidebarHeight] = useState(0);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const sidebarContainerRef = useRef<HTMLDivElement>(null);
   const { scrollToHeading } = useSmoothScroll();
 
   // Check if mobile
@@ -447,35 +313,20 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Track scroll progress
+  // Calculate sidebar height
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      const progress =
-        scrollHeight > 0 ? (currentScroll / scrollHeight) * 100 : 0;
-      setScrollProgress(progress);
-
-      // Track active heading
-      const headingElements = document.querySelectorAll(
-        "h1, h2, h3, h4, h5, h6"
-      );
-      let current = "";
-
-      headingElements.forEach((element) => {
-        const rect = element.getBoundingClientRect();
-        if (rect.top <= 150) {
-          current = element.id || "";
-        }
-      });
-
-      setActiveHeading(current);
+    const updateSidebarHeight = () => {
+      if (sidebarContainerRef.current && !isMobile) {
+        const rect = sidebarContainerRef.current.getBoundingClientRect();
+        setSidebarHeight(rect.height);
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    updateSidebarHeight();
+    window.addEventListener("resize", updateSidebarHeight);
+
+    return () => window.removeEventListener("resize", updateSidebarHeight);
+  }, [isMobile]);
 
   // Simulate loading with sleep function
   useEffect(() => {
@@ -518,20 +369,64 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
     setRelatedPosts(related);
   }, [post.id, post.category]);
 
-  const handleShare = useCallback(() => {
-    setIsShareDialogOpen(true);
+  // Track active heading on scroll
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleScroll = () => {
+      const headingElements = document.querySelectorAll(
+        "h1, h2, h3, h4, h5, h6"
+      );
+      let current = "";
+
+      headingElements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 150) {
+          current = element.id || "";
+        }
+      });
+
+      setActiveHeading(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleLike = useCallback(() => {
-    setIsLiked(!isLiked);
-  }, [isLiked]);
+  const handleShare = () => {
+    if (typeof window !== "undefined" && navigator.share) {
+      navigator.share({
+        title: post.title,
+        text: post.excerpt,
+        url: window.location.href,
+      });
+    } else if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+    }
+  };
 
-  const handleBookmark = useCallback(() => {
-    setIsBookmarked(!isBookmarked);
-  }, [isBookmarked]);
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
+        setIsSidebarOpen(false);
+      }
+    };
+
+    if (isMobile) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobile]);
 
   // Process content to add better styling
-  const processContent = useCallback((html: string) => {
+  const processContent = (html: string) => {
     if (typeof window === "undefined") return html;
 
     const parser = new DOMParser();
@@ -540,17 +435,16 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
     // Style headings
     doc.querySelectorAll("h1").forEach((h) => {
       h.className =
-        "text-3xl md:text-4xl font-bold text-slate-900 mb-6 mt-8 first:mt-0 scroll-mt-24";
+        "text-3xl md:text-4xl font-bold text-slate-900 mb-6 mt-8 first:mt-0";
     });
 
     doc.querySelectorAll("h2").forEach((h) => {
-      h.className =
-        "text-2xl md:text-3xl font-bold text-slate-900 mb-4 mt-8 scroll-mt-24";
+      h.className = "text-2xl md:text-3xl font-bold text-slate-900 mb-4 mt-8";
     });
 
     doc.querySelectorAll("h3").forEach((h) => {
       h.className =
-        "text-xl md:text-2xl font-semibold text-slate-900 mb-3 mt-6 scroll-mt-24";
+        "text-xl md:text-2xl font-semibold text-slate-900 mb-3 mt-6";
     });
 
     // Style paragraphs
@@ -586,26 +480,32 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
     });
 
     return doc.body.innerHTML;
-  }, []);
+  };
 
   if (isLoading) {
     return <BlogDetailSkeleton />;
   }
 
   return (
-    <div className="min-h-screen bg-white relative pt-20">
+    <div className="min-h-screen bg-white">
+      <style jsx global>
+        {scrollbarStyles}
+      </style>
+      {/* Back Button */}
+      <div className="container pt-24 pb-8">
+        <Link href="/blog">
+          <motion.button
+            whileHover={{ x: -5 }}
+            className="flex items-center gap-2 text-white hover:text-blue-200 transition-colors font-medium relative z-10"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Back to Blog
+          </motion.button>
+        </Link>
+      </div>
+
       {/* Hero Section with Background Image */}
       <section className="relative h-[60vh] md:h-[70vh] overflow-hidden">
-        {/* Progress Bar */}
-        <div className="fixed top-20 left-0 w-full h-1 bg-slate-100 z-50">
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
-            style={{ width: `${scrollProgress}%` }}
-          />
-        </div>
-
-        {/* Back Button */}
-
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -621,22 +521,13 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
 
         {/* Content Overlay */}
         <div className="relative container h-full flex items-center">
-          <AnimatedWrapper
-            animation="fadeUp"
-            delay={0.2}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            custom={0.2}
             className="max-w-4xl text-white"
           >
-            <div className="pb-14 ">
-              <Link href="/blogs">
-                <motion.button
-                  whileHover={{ x: -5 }}
-                  className="flex items-center gap-2 text-white/90 hover:text-white transition-colors font-medium cursor-pointer"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                  Back to Blog
-                </motion.button>
-              </Link>
-            </div>
             <Badge className="mb-4 bg-white/20 backdrop-blur-sm text-white px-4 py-2 border border-white/30">
               {post.category}
             </Badge>
@@ -679,7 +570,7 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
                 <span>{post.views}</span>
               </div>
             </div>
-          </AnimatedWrapper>
+          </motion.div>
         </div>
 
         {/* Scroll Indicator */}
@@ -694,69 +585,89 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
         </div>
       </section>
 
-      {/* Main Content Area - Clean White Background */}
-      <section className="container py-12 relative">
+      {/* Article Content with Right Sidebar */}
+      <section className="container py-8 md:py-12">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Main Content */}
             <div className="lg:col-span-3">
-              <AnimatedWrapper animation="fadeUp" delay={0.6}>
-                {/* Article Body */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                custom={0.6}
+              >
                 <div className="prose prose-lg max-w-none">
-                  <div
-                    ref={contentRef}
-                    className="blog-content"
-                    dangerouslySetInnerHTML={{
-                      __html: processContent(post.content),
-                    }}
-                  />
+                  {/* Article Body */}
+                  <Card className="p-6 md:p-8 lg:p-12 shadow-lg">
+                    <div
+                      ref={contentRef}
+                      className="blog-content"
+                      dangerouslySetInnerHTML={{
+                        __html: processContent(post.content),
+                      }}
+                    />
 
-                  {/* Tags */}
-                  {post.tags && post.tags.length > 0 && (
-                    <div className="pt-8 border-t border-slate-200">
-                      <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                        <Hash className="w-4 h-4" />
-                        Tags
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {post.tags.map((tag, index) => (
-                          <Badge
-                            key={index}
-                            variant="secondary"
-                            className="bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors text-xs"
-                          >
-                            #{tag}
-                          </Badge>
-                        ))}
+                    {/* Tags */}
+                    {post.tags && post.tags.length > 0 && (
+                      <div className="pt-8 border-t border-slate-200">
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                          <Hash className="w-4 h-4" />
+                          Tags
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {post.tags.map((tag, index) => (
+                            <Badge
+                              key={index}
+                              variant="secondary"
+                              className="bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors text-xs"
+                            >
+                              #{tag}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </Card>
 
-                {/* Engagement Bar */}
-                <div className="flex flex-col sm:flex-row items-center justify-end gap-4 mt-8 p-6 bg-slate-50 rounded-xl">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleShare}
-                    className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors cursor-pointer"
-                  >
-                    <Share2 className="w-5 h-5" />
-                    <span>Share</span>
-                  </motion.button>
+                  {/* Engagement Bar */}
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl">
+                    <div className="flex items-center gap-6">
+                      <button className="flex items-center gap-2 text-slate-600 hover:text-red-600 transition-colors">
+                        <Heart className="w-5 h-5" />
+                        <span>{post.likes} Likes</span>
+                      </button>
+                      <button className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors">
+                        <MessageCircle className="w-5 h-5" />
+                        <span>{post.comments} Comments</span>
+                      </button>
+                    </div>
+                    <button
+                      onClick={handleShare}
+                      className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors"
+                    >
+                      <Share2 className="w-5 h-5" />
+                      <span>Share</span>
+                    </button>
+                  </div>
                 </div>
-              </AnimatedWrapper>
+              </motion.div>
             </div>
 
             {/* Right Sidebar - Table of Contents */}
-            <div className="lg:col-span-1 sticky top-10">
-              <div className="lg:sticky lg:top-24">
+            <div className="lg:col-span-1">
+              <div
+                ref={sidebarContainerRef}
+                className={`${!isMobile ? "lg:sticky lg:top-24" : ""}`}
+                style={!isMobile ? { height: `${sidebarHeight}px` } : {}}
+              >
                 {/* Mobile Sidebar Toggle */}
                 {isMobile && (
                   <div className="mb-4">
                     <Button
                       onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                      className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg w-full justify-center text-sm"
+                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg w-full justify-center text-sm"
                     >
                       {isSidebarOpen ? (
                         <X className="w-4 h-4" />
@@ -769,42 +680,64 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
                 )}
 
                 {/* Sidebar Content */}
-                <AnimatePresence>
-                  <div
-                    className={`${isMobile ? (isSidebarOpen ? "block" : "hidden") : "block"} sticky top-10`}
-                  >
-                    {/* Table of Contents */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Card className="p-4 bg-slate-50 border-slate-200 shadow-sm mb-6 w-full">
-                        <h3 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                          <TrendingUp className="w-4 h-4 text-blue-600" />
-                          Table of Contents
-                        </h3>
-                        {headings.length > 0 ? (
-                          <div className="space-y-0 max-h-80 overflow-y-auto pr-1">
-                            {headings.map((heading) => (
-                              <TableOfContentsItem
-                                key={heading.id}
-                                heading={heading}
-                                onHeadingClick={scrollToHeading}
-                                isActive={activeHeading === heading.id}
-                              />
-                            ))}
-                          </div>
-                        ) : (
-                          <p className="text-slate-500 text-sm">
-                            No headings found
-                          </p>
-                        )}
-                      </Card>
-                    </motion.div>
-                  </div>
-                </AnimatePresence>
+                <div
+                  ref={sidebarRef}
+                  className={`${
+                    isMobile ? (isSidebarOpen ? "block" : "hidden") : "block"
+                  } ${
+                    !isMobile
+                      ? "overflow-y-auto max-h-[calc(100vh-120px)] custom-scrollbar"
+                      : ""
+                  }`}
+                >
+                  {/* Table of Contents */}
+                  <Card className="p-3 md:p-4 bg-gradient-to-br from-blue-50 to-purple-50 border-0 shadow-lg mb-4">
+                    <h3 className="text-sm md:text-base font-bold text-slate-900 mb-3">
+                      Contents
+                    </h3>
+                    {headings.length > 0 ? (
+                      <div className="space-y-0 max-h-80 overflow-y-auto custom-scrollbar pr-1">
+                        {headings.map((heading) => (
+                          <TableOfContentsItem
+                            key={heading.id}
+                            heading={heading}
+                            onHeadingClick={scrollToHeading}
+                            isActive={activeHeading === heading.id}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-slate-600 text-xs">
+                        No headings found
+                      </p>
+                    )}
+                  </Card>
+
+                  {/* Author Card */}
+                  <Card className="p-3 md:p-4 bg-gradient-to-br from-slate-50 to-blue-50 border-0 shadow-lg">
+                    <h3 className="text-sm md:text-base font-bold text-slate-900 mb-3">
+                      Author
+                    </h3>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                        {post.author.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-slate-900 text-sm">
+                          {post.author.name}
+                        </p>
+                        <p className="text-xs text-slate-600">
+                          {post.author.role}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-slate-600 text-xs leading-relaxed">
+                      Passionate about sharing insights on{" "}
+                      {post.category.toLowerCase()} and helping others learn and
+                      grow.
+                    </p>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
@@ -813,82 +746,110 @@ export function BlogDetailPageClient({ post }: { post: BlogPost }) {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <AnimatedSection animation="fadeUp" className="container pb-16">
-          <div className="max-w-6xl mx-auto">
+        <section className="container pb-16">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
             <div className="text-center mb-12">
-              <Badge className="mb-4 bg-slate-100 text-slate-700 px-4 py-2 text-sm font-medium">
-                Related Articles
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                You Might Also <span className="text-blue-600">Like</span>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                Related <span className="text-blue-600">Articles</span>
               </h2>
-              <p className="text-slate-600 max-w-3xl mx-auto">
-                Explore more articles similar to this one
+              <p className="text-slate-600">
+                Discover more content similar to this article
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {relatedPosts.map((relatedPost, index) => (
-                <AnimatedWrapper
+                <motion.div
                   key={relatedPost.id}
-                  animation="zoomIn"
-                  delay={index * 0.1}
-                  disabledOnMobile={true}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -5 }}
                 >
                   <Link href={`/blog/${relatedPost.slug}`}>
-                    <motion.div whileHover={{ y: -8 }} className="h-full">
-                      <Card className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-500 h-full">
-                        <div className="relative h-48 overflow-hidden">
-                          <Image
-                            src={relatedPost.coverImage}
-                            alt={relatedPost.title}
-                            fill
-                            className="object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
-                        <div className="p-6">
-                          <Badge className="mb-3 bg-slate-100 text-slate-700">
-                            {relatedPost.category}
-                          </Badge>
-                          <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
-                            {relatedPost.title}
-                          </h3>
-                          <p className="text-slate-600 mb-4 line-clamp-2">
-                            {relatedPost.excerpt}
-                          </p>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                                {relatedPost.author.name.charAt(0)}
-                              </div>
-                              <span className="text-sm text-slate-700 hidden sm:inline">
-                                {relatedPost.author.name}
-                              </span>
+                    <Card className="overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-300 h-full">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={relatedPost.coverImage}
+                          alt={relatedPost.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <div className="p-6">
+                        <Badge className="mb-3 bg-blue-100 text-blue-600">
+                          {relatedPost.category}
+                        </Badge>
+                        <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                          {relatedPost.title}
+                        </h3>
+                        <p className="text-slate-600 mb-4 line-clamp-2">
+                          {relatedPost.excerpt}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                              {relatedPost.author.name.charAt(0)}
                             </div>
-                            <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">
-                              Read More
-                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </div>
+                            <span className="text-sm text-slate-700 hidden sm:inline">
+                              {relatedPost.author.name}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 text-blue-600 font-semibold text-sm">
+                            Read More
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>
-                      </Card>
-                    </motion.div>
+                      </div>
+                    </Card>
                   </Link>
-                </AnimatedWrapper>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </AnimatedSection>
+          </motion.div>
+        </section>
       )}
 
-      {/* Share Dialog */}
-      <ShareDialog
-        isOpen={isShareDialogOpen}
-        onClose={() => setIsShareDialogOpen(false)}
-        title={post.title}
-        url={typeof window !== "undefined" ? window.location.href : ""}
-      />
+      {/* CTA Section */}
+      <section className="container pb-16">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+        >
+          <Card className="p-8 md:p-16 bg-gradient-to-br from-blue-600 to-purple-600 text-white text-center">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+              Enjoyed This Article?
+            </h3>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Subscribe to our newsletter for the latest insights and updates
+              delivered straight to your inbox.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-3 rounded-lg text-slate-900 focus:outline-none"
+              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-slate-100 transition-colors"
+              >
+                Subscribe
+              </motion.button>
+            </div>
+          </Card>
+        </motion.div>
+      </section>
     </div>
   );
 }
