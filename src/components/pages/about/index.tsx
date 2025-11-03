@@ -65,7 +65,7 @@ const AboutPageClient = memo(() => {
       {/* -------------- MISSION AND VISION SECTION ------- */}
       {/* ------------------------------------------------ */}
       <AnimatedSection animation="fadeUp" className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatedWrapper animation="slideInLeft" disabledOnMobile={true}>
             <Card className="p-8 h-full bg-gradient-to-br from-blue-50 to-white border-2 border-blue-100 hover:shadow-xl transition-shadow">
               <div className="flex items-center gap-3 mb-6">
@@ -370,7 +370,9 @@ const AboutPageClient = memo(() => {
       {/* ------------------------------------------------ */}
       {/* ---------------- SERVICES OVERVIEW ------------- */}
       {/* ------------------------------------------------ */}
-      <ServicesOverview />
+      <div className="container">
+        <ServicesOverview />
+      </div>
 
       {/* ------------------------------------------------ */}
       {/* ---------------- TECHNOLOGIES SECTION ---------- */}
@@ -405,8 +407,8 @@ const AboutPageClient = memo(() => {
       {/* ---------------- CERTIFICATIONS SECTION -------- */}
       {/* ------------------------------------------------ */}
       <AnimatedSection animation="fadeUp" className="container py-16">
-        <AnimatedWrapper animation="fadeUp">
-          <div className="bg-gradient-to-br from-slate-50 to-white rounded-3xl p-12 shadow-xl border border-slate-100">
+        <AnimatedWrapper animation="fadeUp" className="container">
+          <div className="bg-gradient-to-br from-slate-50 to-white rounded-3xl py-12 px-3 md:px-6 lg:px-8 xl:px-12 shadow-xl border border-slate-100">
             <div className="text-center mb-12">
               <div className="flex justify-center mb-6">
                 <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
@@ -423,7 +425,7 @@ const AboutPageClient = memo(() => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
               {certifications.map((cert, index) => (
                 <AnimatedWrapper
                   key={index}

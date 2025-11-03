@@ -1,6 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 
+import { cn } from "@/utils";
 import { AnimatedBackground } from "./ui/animated-background";
 
 const fadeUp = {
@@ -18,11 +19,20 @@ const fadeUp = {
 
 interface HeroSectionProps {
   children: ReactNode;
+  className?: string;
 }
 
-export default function HeroSectionPage({ children }: HeroSectionProps) {
+export default function HeroSectionPage({
+  children,
+  className,
+}: HeroSectionProps) {
   return (
-    <section className="relative py-24 md:py-32 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 overflow-hidden">
+    <section
+      className={cn(
+        "relative py-24 md:py-32 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 overflow-hidden",
+        className
+      )}
+    >
       <AnimatedBackground disabledOnMobile={true}>
         {children}
       </AnimatedBackground>

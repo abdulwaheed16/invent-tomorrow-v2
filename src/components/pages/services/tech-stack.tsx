@@ -111,7 +111,7 @@ export default function TechStack({ techStack }: TechStackProps) {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-12"
         >
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-6">
             {filteredTechStack?.map((tech: TechStack, index: number) => (
               <TechStackCard key={index} tech={tech} index={index} />
             ))}

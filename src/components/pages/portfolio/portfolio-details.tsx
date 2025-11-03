@@ -278,7 +278,7 @@ export function PortfolioDetailContent({
                     {allMedia.map((media, index) => (
                       <CarouselItem
                         key={index}
-                        className="pl-2 basis-1/4 md:basis-1/5 lg:basis-1/6"
+                        className="pl-2 basis-1/4 md:basis-1/5 lg:basis-1/4"
                       >
                         <div
                           onClick={() => handleThumbClick(index)}
@@ -517,7 +517,7 @@ export function PortfolioDetailContent({
           </AnimatedWrapper>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
               {portfolio.technologies.map((tech, index) => (
                 <AnimatedWrapper
                   key={index}
@@ -751,10 +751,6 @@ export function PortfolioDetailContent({
           </div>
         </AnimatedSection>
       )}
-
-      {/* ------------------------------------------------- */}
-      {/* ------------------- CTA SECTION ----------------- */}
-      {/* ------------------------------------------------- */}
 
       {/* ------------------------------------------------- */}
       {/* ------------------- CTA SECTION ----------------- */}

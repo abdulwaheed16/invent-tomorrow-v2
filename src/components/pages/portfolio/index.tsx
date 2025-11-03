@@ -14,12 +14,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { PortfolioItem } from "../../../../types/portfolio.types";
 
-
 interface PortfolioPageProps {
   portfolioItems: PortfolioItem[];
 }
 
-export default function PortfolioPageClient({portfolioItems}: PortfolioPageProps) {
+export default function PortfolioPageClient({
+  portfolioItems,
+}: PortfolioPageProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredPortfolios =
@@ -65,7 +66,7 @@ export default function PortfolioPageClient({portfolioItems}: PortfolioPageProps
               <AnimatedWrapper
                 animation="fadeUp"
                 delay={0.4}
-                className="relative"
+                className="relative  px-6"
               >
                 <div className="relative">
                   {/* Main featured project */}
@@ -187,7 +188,7 @@ export default function PortfolioPageClient({portfolioItems}: PortfolioPageProps
           </AnimatedSection>
 
           {/* Portfolio Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredPortfolios.map((portfolio, index) => (
               <AnimatedWrapper
                 key={portfolio.id}

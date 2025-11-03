@@ -124,8 +124,8 @@ export default function ServiceProcessDetailed({
               </p>
             </AnimatedWrapper>
 
-            {/* Desktop: Horizontal Accordion */}
-            <div className="hidden lg:block">
+            {/* Large Screens: Horizontal Accordion */}
+            <div className="hidden xl:block">
               <div className="flex h-[630px] gap-3">
                 {process.map((phase: ProcessStep, index: number) => {
                   const Icon = iconMap[phase.icon] || Search;
@@ -300,147 +300,272 @@ export default function ServiceProcessDetailed({
               </div>
             </div>
 
-            {/* Mobile: Vertical Stack */}
-            <div className="relative lg:hidden">
-              {/* Connection line for mobile */}
-              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white to-white/30 opacity-50 -translate-x-1/2" />
+            {/* Mid Screens: Alternating Cards with Timeline */}
+            <div className="hidden md:block xl:hidden">
+              <div className="relative">
+                {/* Central Timeline Line */}
+                <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-white to-white/30 transform -translate-x-1/2"></div>
 
-              <div className="space-y-8">
-                {process.map((phase: ProcessStep, index: number) => {
-                  const Icon = iconMap[phase.icon] || Search;
-                  const isActive = activeIndex === index;
+                <div className="space-y-12">
+                  {process.map((phase: ProcessStep, index: number) => {
+                    const Icon = iconMap[phase.icon] || Search;
+                    const isActive = activeIndex === index;
+                    const isEven = index % 2 === 0;
 
-                  return (
-                    <AnimatedWrapper
-                      key={index}
-                      animation="slideInLeft"
-                      delay={index * 0.1}
-                      disabledOnMobile={true}
-                      className="pl-12 md:pl-0"
-                    >
-                      <div className="flex items-center gap-8">
-                        <div className="hidden md:block w-1/2" />
-                        <div className="flex-1">
-                          <div
-                            className="bg-white/10 backdrop-blur-md border border-white/20 p-8 hover:bg-white/20 transition-all duration-500 ease-[cubic-bezier(0.4, 0, 0.2, 1)] cursor-pointer"
-                            onClick={() => handleAccordionClick(index)}
-                          >
-                            <div className="flex flex-col h-full">
-                              {/* Main Content */}
-                              <div className="flex-1 flex flex-col justify-center mb-4">
-                                <div className="flex items-center gap-4 mb-4">
-                                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30 transition-transform duration-300 hover:scale-110">
-                                    <Icon className="w-7 h-7 text-white" />
-                                  </div>
-                                  <div>
-                                    <h3 className="text-2xl font-bold text-white">
-                                      {phase.title}
-                                    </h3>
-                                    <span className="text-sm text-blue-200 font-medium">
-                                      {phase.duration}
-                                    </span>
-                                  </div>
+                    return (
+                      <AnimatedWrapper
+                        key={index}
+                        animation={isEven ? "slideInLeft" : "slideInRight"}
+                        delay={index * 0.1}
+                        className="relative"
+                      >
+                        <div
+                          className={`flex ${isEven ? "justify-start" : "justify-end"}`}
+                        >
+                          <div className={`w-5/12 `}>
+                            <div
+                              className={`bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-xl hover:bg-white/20 transition-all duration-500 cursor-pointer ${
+                                isActive ? "bg-white/20 shadow-xl" : ""
+                              }`}
+                              onClick={() => handleAccordionClick(index)}
+                            >
+                              <div className="flex items-center justify-start gap-3 mb-3">
+                                <div
+                                  className={`w-12 h-12 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30 transition-transform duration-300 hover:scale-110 `}
+                                >
+                                  <Icon className="w-6 h-6 text-white" />
                                 </div>
-                                <p className="text-blue-100 leading-relaxed">
-                                  {phase.description}
-                                </p>
+                                <div>
+                                  <h3 className="text-xl font-bold text-white">
+                                    {phase.title}
+                                  </h3>
+                                  <span className="text-xs text-blue-200 font-medium">
+                                    {phase.duration}
+                                  </span>
+                                </div>
                               </div>
 
-                              {/* Bottom Section */}
-                              <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
-                                <div className="text-4xl font-bold text-white/20">
+                              <p className="text-blue-100 text-sm leading-relaxed mb-4">
+                                {phase.description}
+                              </p>
+
+                              {/* Expandable Details */}
+                              <div
+                                id={`accordion-content-${index}`}
+                                className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4, 0, 0.2, 1)] ${
+                                  isActive
+                                    ? "max-h-96 opacity-100"
+                                    : "max-h-0 opacity-0"
+                                }`}
+                              >
+                                <div className="pt-3 border-t border-white/10">
+                                  <div className="grid grid-cols-1 gap-3">
+                                    <div>
+                                      <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
+                                        <Package
+                                          size={14}
+                                          className="mr-2 text-blue-300"
+                                        />
+                                        Key Deliverables
+                                      </h4>
+                                      <ul className="space-y-1">
+                                        {phase.deliverables.map(
+                                          (deliverable, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="flex items-center text-xs text-blue-100"
+                                            >
+                                              <CheckCircle
+                                                size={10}
+                                                className="mr-2 text-green-400 flex-shrink-0"
+                                              />
+                                              {deliverable}
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+
+                                    <div>
+                                      <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
+                                        <Activity
+                                          size={14}
+                                          className="mr-2 text-blue-300"
+                                        />
+                                        Key Activities
+                                      </h4>
+                                      <ul className="space-y-1">
+                                        {phase.keyActivities.map(
+                                          (activity, idx) => (
+                                            <li
+                                              key={idx}
+                                              className="flex items-start text-xs text-blue-100"
+                                            >
+                                              <ArrowRight
+                                                size={10}
+                                                className="mr-2 mt-0.5 text-blue-400 flex-shrink-0"
+                                              />
+                                              <span>{activity}</span>
+                                            </li>
+                                          )
+                                        )}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between mt-4">
+                                <div className="text-3xl font-bold text-white/20">
                                   {String(index + 1).padStart(2, "0")}
                                 </div>
-                                <div className="flex items-center gap-2">
-                                  <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30">
-                                    <Icon className="w-4 h-4 text-white" />
-                                  </div>
-                                  <div className="text-sm text-white/80 font-medium">
-                                    {phase.title}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Expandable Details with smooth height transition */}
-                            <div
-                              id={`accordion-content-${index}`}
-                              className="overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4, 0, 0.2, 1)]"
-                              style={{
-                                maxHeight: isActive
-                                  ? `${contentHeight}px`
-                                  : "0px",
-                                opacity: isActive ? 1 : 0,
-                              }}
-                            >
-                              <div className="pt-4 border-t border-white/10">
-                                <div className="grid grid-cols-1 gap-4">
-                                  <div>
-                                    <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
-                                      <Package
-                                        size={16}
-                                        className="mr-2 text-blue-300"
-                                      />
-                                      Key Deliverables
-                                    </h4>
-                                    <ul className="space-y-1">
-                                      {phase.deliverables.map(
-                                        (deliverable, idx) => (
-                                          <li
-                                            key={idx}
-                                            className="flex items-center text-xs text-blue-100 transition-all duration-300 hover:translate-x-1"
-                                            style={{
-                                              animationDelay: `${idx * 50}ms`,
-                                            }}
-                                          >
-                                            <CheckCircle
-                                              size={12}
-                                              className="mr-2 text-green-400 flex-shrink-0 transition-transform duration-300 hover:scale-110"
-                                            />
-                                            {deliverable}
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
-
-                                  <div>
-                                    <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
-                                      <Activity
-                                        size={16}
-                                        className="mr-2 text-blue-300"
-                                      />
-                                      Key Activities
-                                    </h4>
-                                    <ul className="space-y-1">
-                                      {phase.keyActivities.map(
-                                        (activity, idx) => (
-                                          <li
-                                            key={idx}
-                                            className="flex items-start text-xs text-blue-100 transition-all duration-300 hover:translate-x-1"
-                                            style={{
-                                              animationDelay: `${idx * 50 + 100}ms`,
-                                            }}
-                                          >
-                                            <ArrowRight
-                                              size={12}
-                                              className="mr-2 mt-0.5 text-blue-400 flex-shrink-0 transition-transform duration-300 hover:scale-110"
-                                            />
-                                            <span>{activity}</span>
-                                          </li>
-                                        )
-                                      )}
-                                    </ul>
-                                  </div>
+                                <div className="text-xs text-blue-200">
+                                  {isActive
+                                    ? "Click to collapse"
+                                    : "Click to expand"}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </AnimatedWrapper>
-                  );
-                })}
+
+                        {/* Timeline Node */}
+                        <div className="absolute left-1/2 top-6 w-6 h-6 bg-white rounded-full border-4 border-blue-600 transform -translate-x-1/2 z-10">
+                          <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-30"></div>
+                        </div>
+                      </AnimatedWrapper>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Small Screens: Vertical Stack with Side Line */}
+            <div className="md:hidden">
+              <div className="relative">
+                {/* Side Timeline Line */}
+                <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white to-white/30"></div>
+
+                <div className="space-y-6 pl-12">
+                  {process.map((phase: ProcessStep, index: number) => {
+                    const Icon = iconMap[phase.icon] || Search;
+                    const isActive = activeIndex === index;
+
+                    return (
+                      <AnimatedWrapper
+                        key={index}
+                        animation="slideInLeft"
+                        delay={index * 0.1}
+                        className="relative"
+                      >
+                        <div
+                          className={`bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-xl hover:bg-white/20 transition-all duration-500 cursor-pointer ${
+                            isActive ? "bg-white/20 shadow-xl" : ""
+                          }`}
+                          onClick={() => handleAccordionClick(index)}
+                        >
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/20 backdrop-blur-sm border border-white/30 transition-transform duration-300 hover:scale-110">
+                              <Icon className="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-bold text-white">
+                                {phase.title}
+                              </h3>
+                              <span className="text-xs text-blue-200 font-medium">
+                                {phase.duration}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p className="text-blue-100 text-sm leading-relaxed mb-4">
+                            {phase.description}
+                          </p>
+
+                          {/* Expandable Details */}
+                          <div
+                            id={`accordion-content-${index}`}
+                            className={`overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4, 0, 0.2, 1)] ${
+                              isActive
+                                ? "max-h-96 opacity-100"
+                                : "max-h-0 opacity-0"
+                            }`}
+                          >
+                            <div className="pt-3 border-t border-white/10">
+                              <div className="grid grid-cols-1 gap-3">
+                                <div>
+                                  <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
+                                    <Package
+                                      size={14}
+                                      className="mr-2 text-blue-300"
+                                    />
+                                    Key Deliverables
+                                  </h4>
+                                  <ul className="space-y-1">
+                                    {phase.deliverables.map(
+                                      (deliverable, idx) => (
+                                        <li
+                                          key={idx}
+                                          className="flex items-center text-xs text-blue-100"
+                                        >
+                                          <CheckCircle
+                                            size={10}
+                                            className="mr-2 text-green-400 flex-shrink-0"
+                                          />
+                                          {deliverable}
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+
+                                <div>
+                                  <h4 className="font-semibold text-white mb-2 flex items-center text-sm">
+                                    <Activity
+                                      size={14}
+                                      className="mr-2 text-blue-300"
+                                    />
+                                    Key Activities
+                                  </h4>
+                                  <ul className="space-y-1">
+                                    {phase.keyActivities.map(
+                                      (activity, idx) => (
+                                        <li
+                                          key={idx}
+                                          className="flex items-start text-xs text-blue-100"
+                                        >
+                                          <ArrowRight
+                                            size={10}
+                                            className="mr-2 mt-0.5 text-blue-400 flex-shrink-0"
+                                          />
+                                          <span>{activity}</span>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between mt-4">
+                            <div className="text-2xl font-bold text-white/20">
+                              {String(index + 1).padStart(2, "0")}
+                            </div>
+                            <div className="text-xs text-blue-200">
+                              {isActive ? "Tap to collapse" : "Tap to expand"}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Timeline Node */}
+                        <div className="absolute left-0 top-6 w-4 h-4 bg-white rounded-full border-2 border-blue-600 transform -translate-x-1/2 z-10">
+                          <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-30"></div>
+                        </div>
+                      </AnimatedWrapper>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 

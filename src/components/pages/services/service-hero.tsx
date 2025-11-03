@@ -31,7 +31,7 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
       {/* ------------------------------------------------ */}
       {/* ------------------- HERO SECTION ---------------- */}
       {/* ------------------------------------------------ */}
-      <HeroSectionPage>
+      <HeroSectionPage className="container">
         <div className="container flex flex-col justify-between gap-18 relative z-10 pt-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
@@ -77,16 +77,7 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
                 <AnimatedWrapper animation="bounceIn" delay={0.4}>
                   <BookCallButton />
                 </AnimatedWrapper>
-                <AnimatedWrapper animation="bounceIn" delay={0.5}>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-white text-white hover:bg-white hover:text-blue-600 transition-colors"
-                  >
-                    Learn More
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </AnimatedWrapper>
+             
               </div>
             </AnimatedWrapper>
 
@@ -94,7 +85,7 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
             <AnimatedWrapper
               animation="fadeUp"
               delay={0.3}
-              className="relative"
+              className="relative px-4"
             >
               <div className="relative">
                 {/* Main Image Display */}

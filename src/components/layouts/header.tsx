@@ -117,6 +117,18 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle keyboard navigation for mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMenuOpen]);
+
   // Scroll to section function
   const scrollToSection = (page: string, sectionId: string) => {
     if (pathname === page) {
@@ -252,12 +264,12 @@ const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center space-x-7 text-white font-medium">
+        <ul className="hidden lg:flex items-center space-x-7 text-white font-medium">
           {navigationData.navItems.map(renderNavItem)}
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Link
             href={navigationData.cta.href}
             target="_blank"
@@ -275,15 +287,16 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white"
+          className="lg:hidden text-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
           onClick={() => setIsMenuOpen((prev) => !prev)}
-          aria-label="Toggle Menu"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Enhanced Version */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -292,72 +305,88 @@ const Header = () => {
             animate="visible"
             exit="exit"
             variants={menuVariants}
-            className="md:hidden bg-[#1644eb]/90 backdrop-blur-sm text-white shadow-2xl overflow-hidden"
+            className="lg:hidden bg-[#1644eb]/95 backdrop-blur-md text-white shadow-2xl overflow-hidden"
+            role="navigation"
+            aria-label="Mobile navigation"
           >
-            <ul className="flex flex-col items-center gap-3 py-4 text-lg font-medium">
-              {navigationData.navItems.map((item, index) => {
-                if (item.isDropdown && item.dropdownItems) {
-                  return (
-                    <li
-                      key={`${item.label}-mobile-${index}`}
-                      className="w-full px-4"
-                    >
-                      <div className="border-t border-white/20 pt-4">
-                        <h4 className="text-sm font-medium mb-3 text-white/80">
-                          {item.label}
-                        </h4>
-                        <div className="space-y-2">
-                          {item.dropdownItems.map((dropdownItem) => {
-                            const Icon = dropdownItem.icon;
-                            return (
-                              <Link
-                                key={dropdownItem.href}
-                                href={dropdownItem.href}
-                                onClick={() => setIsMenuOpen(false)}
-                                className="flex items-center gap-3 py-2 text-white/80 hover:text-gray-200 transition-colors"
-                              >
-                                <Icon className="w-4 h-4" />
-                                <span className="text-sm">
-                                  {dropdownItem.label}
-                                </span>
-                              </Link>
-                            );
-                          })}
+            <div className="container mx-auto px-4 py-6">
+              <ul className="space-y-1">
+                {navigationData.navItems.map((item, index) => {
+                  if (item.isDropdown && item.dropdownItems) {
+                    return (
+                      <li
+                        key={`${item.label}-mobile-${index}`}
+                        className="py-2"
+                      >
+                        <div className="border-b border-white/20 pb-4">
+                          <h3 className="text-white/90 font-medium text-lg mb-3 px-2">
+                            {item.label}
+                          </h3>
+                          <div className="space-y-1 pl-4">
+                            {item.dropdownItems.map((dropdownItem) => {
+                              const Icon = dropdownItem.icon;
+                              return (
+                                <Link
+                                  key={dropdownItem.href}
+                                  href={dropdownItem.href}
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="flex items-center gap-3 py-3  text-white/90 hover:bg-white/10 rounded-lg transition-all duration-200 group focus:outline-none focus:bg-white/10"
+                                >
+                                  <div className="flex-shrink-0 w-8 h-8 bg-white/10 rounded-md flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                                    <Icon className="w-4 h-4 text-white" />
+                                  </div>
+                                  <div>
+                                    <span className="text-sm font-medium">
+                                      {dropdownItem.label}
+                                    </span>
+                                    <p className="text-xs text-white/60 mt-0.5">
+                                      {dropdownItem.description}
+                                    </p>
+                                  </div>
+                                </Link>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={`${item.label}-mobile-${index}`} className="py-2">
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          scrollToSection(item.href, item.href.split("#")[1]);
+                        }}
+                        className="block  px-3 text-white/90 hover:bg-white/10 rounded-lg transition-all duration-200 font-medium focus:outline-none focus:bg-white/10"
+                      >
+                        {item.label}
+                      </Link>
                     </li>
                   );
-                }
+                })}
 
-                return (
-                  <li key={`${item.label}-mobile-${index}`}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block px-4 py-2 text-white/80 hover:text-gray-200 transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-
-              <li>
-                <Link
-                  href={navigationData.cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="bg-white text-black/90 border-2 border-white font-semibold py-1 px-3 rounded-md shadow-lg hover:bg-black/90 hover:text-white hover:border-black/90 transition-all duration-300"
+                <li className="pt-6 mt-2 border-t border-white/20">
+                  <Link
+                    href={navigationData.cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block"
                   >
-                    {navigationData.cta.label}
-                  </motion.button>
-                </Link>
-              </li>
-            </ul>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-white text-black/90 border-2 border-white font-semibold py-3 px-4 rounded-md shadow-lg hover:bg-black/90 hover:text-white hover:border-black/90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#1644eb]"
+                    >
+                      {navigationData.cta.label}
+                    </motion.button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
