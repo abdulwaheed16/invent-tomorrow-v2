@@ -31,7 +31,7 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
       {/* ------------------------------------------------ */}
       {/* ------------------- HERO SECTION ---------------- */}
       {/* ------------------------------------------------ */}
-      <HeroSectionPage className="container">
+      <HeroSectionPage className="">
         <div className="container flex flex-col justify-between gap-18 relative z-10 pt-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
