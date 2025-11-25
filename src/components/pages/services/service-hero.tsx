@@ -6,10 +6,10 @@ import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import BookCallButton from "@/components/ui/buttons/book-call-button";
-import { ArrowRight, ChevronDown, Play, Sparkles, Zap } from "lucide-react";
+import { ChevronDown, Play, Sparkles, Zap } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { HeroData } from "../../../../types/services";
+import { HeroData } from "../../../lib/types/services";
 
 interface ServiceHeroProps {
   heroData: HeroData;
@@ -77,7 +77,6 @@ export default function ServiceHero({ heroData }: ServiceHeroProps) {
                 <AnimatedWrapper animation="bounceIn" delay={0.4}>
                   <BookCallButton />
                 </AnimatedWrapper>
-             
               </div>
             </AnimatedWrapper>
 

@@ -1,5 +1,5 @@
-import { ServicesData } from "../../../../types/services";
-import { images, logos } from "../../../utils/assets";
+import { ServicesData } from "../../../lib/types/services";
+import { images, logos } from "../../../lib/utils/assets";
 
 const {
   webDevHero1,

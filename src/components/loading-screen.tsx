@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { images } from "../utils/assets";
+import { images } from "../lib/utils/assets";
 
 export default function LoadingScreen() {
   return (

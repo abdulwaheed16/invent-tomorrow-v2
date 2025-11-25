@@ -12,7 +12,7 @@ import { ArrowRight, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { PortfolioItem } from "../../../../types/portfolio.types";
+import { PortfolioItem } from "../../../lib/types/portfolio.types";
 
 interface PortfolioPageProps {
   portfolioItems: PortfolioItem[];

@@ -1,23 +1,20 @@
 import LoadingScreen from "@/components/loading-screen";
 import Providers from "@/components/providers";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
 import "./globals.css";
 
+// Inter font (similar to Open Sauce)
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 // Segoe UI
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 const segoeUi = localFont({
   src: "../../public/fonts/segoeuithis.ttf",
   variable: "--font-segoe-ui",
@@ -59,7 +56,7 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${segoeUi.className}  antialiased`}>
+      <body className={`${inter.variable} ${segoeUi.className} antialiased`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

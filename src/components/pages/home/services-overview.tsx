@@ -3,7 +3,7 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 import { AnimatedWrapper } from "@/components/ui/animated-wrapper";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { images } from "@/utils/assets";
+import { images } from "@/lib/utils/assets";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },

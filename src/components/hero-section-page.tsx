@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode } from "react";
 
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 import { AnimatedBackground } from "./ui/animated-background";
 
 const fadeUp = {

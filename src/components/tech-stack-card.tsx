@@ -1,5 +1,5 @@
 "use client";
-import { techLogos } from "@/utils/assets";
+import { techLogos } from "@/lib/utils/assets";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -30,7 +30,7 @@ export default function TechStackCard({ tech, index = 0 }: TechStackCardProps) {
         <div className="w-20 h-20 rounded-full p-1 flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ">
           <Image
             src={techLogos?.dockerLogo?.src ?? ""}
-            alt={typeof tech === "object" ? tech?.title : tech ?? ""}
+            alt={typeof tech === "object" ? tech?.title : (tech ?? "")}
             width={200}
             height={200}
             className="object-cover"

@@ -1,7 +1,7 @@
 // data/technologies.ts
 
-import { images } from "@/utils/assets";
-import { TechStackItem } from "../../../types/services";
+import { images } from "@/lib/utils/assets";
+import { TechStackItem } from "../types/services";
 
 // disable-next-line @typescript-eslint/no-explicit-any
 const placeholderImage: string = images.placeholderImage.src;

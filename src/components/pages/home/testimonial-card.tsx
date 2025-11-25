@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Testimonial } from "../../../../types/home-data.types";
+import { Testimonial } from "../../../lib/types/home-data.types";
 
 export const TestimonialCard = ({
   quote,

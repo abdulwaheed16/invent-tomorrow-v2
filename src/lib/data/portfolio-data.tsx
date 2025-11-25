@@ -1,11 +1,8 @@
 // data/portfolio.ts
 
-import { images } from "@/utils/assets";
-import {
-  PortfolioCategory,
-  PortfolioItem,
-} from "../../../types/portfolio.types";
-import { TechStackItem } from "../../../types/services";
+import { images } from "@/lib/utils/assets";
+import { PortfolioCategory, PortfolioItem } from "../types/portfolio.types";
+import { TechStackItem } from "../types/services";
 import { createTechStackItem, techStacks } from "./technologies";
 
 export const portfolioCategories: PortfolioCategory[] = [

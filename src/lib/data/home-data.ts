@@ -1,4 +1,4 @@
-import { icons, logos } from "../../utils/assets";
+import { icons, logos } from "../utils/assets";
 
 export const homeData = {
   founderIssues: [

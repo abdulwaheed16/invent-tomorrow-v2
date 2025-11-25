@@ -2,7 +2,7 @@
 "use client";
 
 import { animationVariants } from "@/lib/animations/variants";
-import { cn } from "@/utils";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 

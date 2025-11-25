@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, LucideIcon, PlayCircle } from "lucide-react";
-import { Service } from "../../../../types/services.types";
+import { Service } from "../../../lib/types/services.types";
 
 interface Props {
   service: Service;

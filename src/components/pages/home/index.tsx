@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
-import { icons, images } from "../../../utils/assets";
+import { icons, images } from "../../../lib/utils/assets";
 import { CustomCard } from "./custom-card";
 import ProjectsSection from "./projects-section";
 import { StackItem } from "./stack-item";

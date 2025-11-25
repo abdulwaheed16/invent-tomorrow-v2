@@ -1,17 +1,10 @@
-import Image from "next/image";
-import { CardData } from "../../../../types/home-data.types";
+import { CardData } from "../../../lib/types/home-data.types";
 
-export const TechCard = ({ icon, title, description }: CardData) => (
+export const TechCard = ({ icon: Icon, title, description }: CardData) => (
   <div className="bg-[#1644EB]/20 p-4 sm:p-5 md:p-6 border border-gray-100 rounded-2xl shadow-md shadow-blue-50 flex  items-center gap-4 sm:gap-5">
     {/* Icon container */}
     <div className="flex items-center justify-center rounded-full size-16 sm:size-20 md:size-24 lg:size-28 flex-shrink-0">
-      <Image
-        src={icon?.src}
-        alt={title || "tech icon"}
-        width={64}
-        height={64}
-        className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"
-      />
+      <Icon className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain" />
     </div>
 
     {/* Text content */}

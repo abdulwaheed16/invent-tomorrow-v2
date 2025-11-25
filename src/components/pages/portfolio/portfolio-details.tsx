@@ -33,7 +33,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { PortfolioItem } from "../../../../types/portfolio.types";
+import { PortfolioItem } from "../../../lib/types/portfolio.types";
 
 export function PortfolioDetailContent({
   portfolio,

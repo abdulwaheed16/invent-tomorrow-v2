@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { techLogos } from "@/utils/assets";
+import { techLogos } from "@/lib/utils/assets";
 import { motion } from "framer-motion";
 import { Filter, Grid, List, Search, X } from "lucide-react";
 import Image from "next/image";

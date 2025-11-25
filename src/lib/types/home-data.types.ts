@@ -1,12 +1,14 @@
+import { LucideIcon } from "lucide-react";
+
 export interface CardData {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
 }
 
 export interface IStackItem {
   name: string;
-  logo: any;
+  logo: string;
 }
 
 export interface Testimonial {
